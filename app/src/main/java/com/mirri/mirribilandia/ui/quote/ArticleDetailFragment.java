@@ -11,16 +11,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import butterknife.Bind;
 import com.mirri.mirribilandia.R;
-import com.mirri.mirribilandia.dummy.DummyContent;
+import com.mirri.mirribilandia.item.AttractionContent;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 import com.mirri.mirribilandia.ui.base.BaseFragment;
 
 /**
  * Shows the quote detail page.
- *
- * Created by Andreas Schrade on 14.12.2015.
  */
 public class ArticleDetailFragment extends BaseFragment {
 
@@ -32,18 +29,11 @@ public class ArticleDetailFragment extends BaseFragment {
     /**
      * The dummy content of this fragment.
      */
-    private DummyContent.DummyItem dummyItem;
+    private AttractionContent.AttractionItem attractionItem;
 
-    @Bind(R.id.quote)
     TextView quote;
-
-    @Bind(R.id.author)
     TextView author;
-
-    @Bind(R.id.backdrop)
     ImageView backdropImg;
-
-    @Bind(R.id.collapsing_toolbar)
     CollapsingToolbarLayout collapsingToolbar;
 
     @Override
@@ -52,7 +42,7 @@ public class ArticleDetailFragment extends BaseFragment {
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             // load dummy item by using the passed item ID.
-            dummyItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            attractionItem = AttractionContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
         }
 
         setHasOptionsMenu(true);
@@ -61,24 +51,27 @@ public class ArticleDetailFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflateAndBind(inflater, container, R.layout.fragment_article_detail);
-
+        quote = rootView.findViewById(R.id.quote);
+        author = rootView.findViewById(R.id.author);
+        backdropImg = rootView.findViewById(R.id.backdrop);
+        collapsingToolbar = rootView.findViewById(R.id.collapsing_toolbar);
         if (!((BaseActivity) getActivity()).providesActivityToolbar()) {
             // No Toolbar present. Set include_toolbar:
             ((BaseActivity) getActivity()).setToolbar((Toolbar) rootView.findViewById(R.id.toolbar));
         }
 
-        if (dummyItem != null) {
+        if (attractionItem != null) {
             loadBackdrop();
-            collapsingToolbar.setTitle(dummyItem.title);
-            author.setText(dummyItem.author);
-            quote.setText(dummyItem.content);
+            collapsingToolbar.setTitle(attractionItem.title);
+            author.setText(attractionItem.author);
+            quote.setText(attractionItem.content);
         }
 
         return rootView;
     }
 
     private void loadBackdrop() {
-        Glide.with(this).load(dummyItem.photoId).centerCrop().into(backdropImg);
+        Glide.with(this).load(attractionItem.photoId).centerCrop().into(backdropImg);
     }
 
     public static ArticleDetailFragment newInstance(String itemID) {

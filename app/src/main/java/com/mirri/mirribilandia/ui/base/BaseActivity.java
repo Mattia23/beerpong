@@ -11,9 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.mirri.mirribilandia.R;
+import com.mirri.mirribilandia.ui.AttractionActivity;
 import com.mirri.mirribilandia.ui.EventActivity;
 import com.mirri.mirribilandia.ui.MapActivity;
-import com.mirri.mirribilandia.ui.quote.ListActivity;
 
 import static com.mirri.mirribilandia.util.LogUtil.logD;
 import static com.mirri.mirribilandia.util.LogUtil.makeLogTag;
@@ -22,8 +22,6 @@ import static com.mirri.mirribilandia.util.LogUtil.makeLogTag;
  * The base class for all Activity classes.
  * This class creates and provides the navigation drawer and toolbar.
  * The navigation logic is handled in {@link BaseActivity#goToNavDrawerItem(int)}
- *
- * Created by Andreas Schrade on 14.12.2015.
  */
 public abstract class BaseActivity extends AppCompatActivity {
     private static final String TAG = makeLogTag(BaseActivity.class);
@@ -111,7 +109,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.nav_attraction:
-                intent = new Intent(this, ListActivity.class);
+                intent = new Intent(this, AttractionActivity.class);
                 startActivity(intent);
                 finish();
                 break;

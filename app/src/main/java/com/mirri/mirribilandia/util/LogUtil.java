@@ -2,9 +2,6 @@ package com.mirri.mirribilandia.util;
 
 import android.util.Log;
 
-/**
- * Created by Andreas Schrade on 14.12.2015.
- */
 public class LogUtil {
     private static final String LOG_PREFIX = "android_template";
 

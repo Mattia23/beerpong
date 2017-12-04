@@ -21,12 +21,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import com.mirri.mirribilandia.R;
-import com.mirri.mirribilandia.dummy.DummyContent;
+import com.mirri.mirribilandia.item.AttractionContent;
 
 /**
  * Shows a list of all available quotes.
- * <p/>
- * Created by Andreas Schrade on 14.12.2015.
  */
 public class ArticleListFragment extends ListFragment {
 
@@ -59,7 +57,7 @@ public class ArticleListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         // notify callback about the selected list item
-        callback.onItemSelected(DummyContent.ITEMS.get(position).id);
+        callback.onItemSelected(AttractionContent.ITEMS.get(position).id);
     }
 
     /**
@@ -100,17 +98,17 @@ public class ArticleListFragment extends ListFragment {
 
         @Override
         public int getCount() {
-            return DummyContent.ITEMS.size();
+            return AttractionContent.ITEMS.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return DummyContent.ITEMS.get(position);
+            return AttractionContent.ITEMS.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            return DummyContent.ITEMS.get(position).id.hashCode();
+            return AttractionContent.ITEMS.get(position).id.hashCode();
         }
 
         @Override
@@ -119,10 +117,10 @@ public class ArticleListFragment extends ListFragment {
                 convertView = LayoutInflater.from(getActivity()).inflate(R.layout.list_item_article, container, false);
             }
 
-            final DummyContent.DummyItem item = (DummyContent.DummyItem) getItem(position);
+            final AttractionContent.AttractionItem item = (AttractionContent.AttractionItem) getItem(position);
             ((TextView) convertView.findViewById(R.id.article_title)).setText(item.title);
             ((TextView) convertView.findViewById(R.id.article_subtitle)).setText(item.author);
-            final ImageView img = (ImageView) convertView.findViewById(R.id.thumbnail);
+            final ImageView img = convertView.findViewById(R.id.thumbnail);
             Glide.with(getActivity()).load(item.photoId).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
                 @Override
                 protected void setResource(Bitmap resource) {

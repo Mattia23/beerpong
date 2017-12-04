@@ -5,15 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import butterknife.ButterKnife;
 import com.mirri.mirribilandia.util.LogUtil;
 
 import static com.mirri.mirribilandia.util.LogUtil.makeLogTag;
 
 /**
  * The base class for all fragment classes.
- *
- * Created by Andreas Schrade on 14.12.2015.
  */
 public class BaseFragment extends Fragment {
 
@@ -28,8 +25,6 @@ public class BaseFragment extends Fragment {
      */
     public View inflateAndBind(LayoutInflater inflater, ViewGroup container, int layout) {
         View view = inflater.inflate(layout, container, false);
-        ButterKnife.bind(this, view);
-
         LogUtil.logD(TAG, ">>> view inflated");
         return view;
     }

@@ -3,7 +3,6 @@ package com.mirri.mirribilandia.ui;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -20,8 +19,6 @@ import com.mirri.mirribilandia.ui.base.BaseActivity;
 
 /**
  * This Activity provides several settings. Activity contains {@link PreferenceFragment} as inner class.
- *
- * Created by Andreas Schrade on 14.12.2015.
  */
 public class EventActivity extends BaseActivity {
 

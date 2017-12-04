@@ -1,20 +1,13 @@
 package com.mirri.mirribilandia.ui;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
-import android.view.View;
-
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 
 /**
  * Activity demonstrates some GUI functionalities from the Android support library.
- *
- * Created by Andreas Schrade on 14.12.2015.
  */
 public class ViewSamplesActivity extends BaseActivity {
 
@@ -22,14 +15,13 @@ public class ViewSamplesActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_samples);
-        ButterKnife.bind(this);
         setupToolbar();
     }
 
-    @OnClick(R.id.fab)
+    /*@OnClick(R.id.fab)
     public void onFabClicked(View view) {
         Snackbar.make(view, "Hello Snackbar!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-    }
+    }*/
 
     private void setupToolbar() {
         final ActionBar ab = getActionBarToolbar();

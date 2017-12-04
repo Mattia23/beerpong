@@ -1,21 +1,19 @@
 package com.mirri.mirribilandia.ui.quote;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.mirri.mirribilandia.R;
-import com.mirri.mirribilandia.dummy.DummyContent;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 import com.mirri.mirribilandia.util.LogUtil;
 
-public class ListActivity extends BaseActivity implements ArticleListFragment.Callback {
+public abstract class ListActivity extends BaseActivity implements ArticleListFragment.Callback {
     /**
      * Whether or not the activity is running on a device with a large screen
      */
-    private boolean twoPaneMode;
+    protected boolean twoPaneMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +39,7 @@ public class ListActivity extends BaseActivity implements ArticleListFragment.Ca
      * @param id the selected quote ID
      */
     @Override
-    public void onItemSelected(String id) {
-        if (twoPaneMode) {
-            // Show the quote detail information by replacing the DetailFragment via transaction.
-            ArticleDetailFragment fragment = ArticleDetailFragment.newInstance(id);
-            getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
-        } else {
-            // Start the detail activity in single pane mode.
-            Intent detailIntent = new Intent(this, ArticleDetailActivity.class);
-            detailIntent.putExtra(ArticleDetailFragment.ARG_ITEM_ID, id);
-            startActivity(detailIntent);
-        }
-    }
+    public abstract void onItemSelected(String id);
 
     private void setupToolbar() {
         final ActionBar ab = getActionBarToolbar();
@@ -60,10 +47,7 @@ public class ListActivity extends BaseActivity implements ArticleListFragment.Ca
         ab.setDisplayHomeAsUpEnabled(true);
     }
 
-    private void setupDetailFragment() {
-        ArticleDetailFragment fragment =  ArticleDetailFragment.newInstance(DummyContent.ITEMS.get(0).id);
-        getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
-    }
+    protected abstract void setupDetailFragment();
 
     /**
      * Enables the functionality that selected items are automatically highlighted.
@@ -93,9 +77,7 @@ public class ListActivity extends BaseActivity implements ArticleListFragment.Ca
     }
 
     @Override
-    protected int getSelfNavDrawerItem() {
-        return R.id.nav_attraction;
-    }
+    protected abstract int getSelfNavDrawerItem();
 
     @Override
     public boolean providesActivityToolbar() {
