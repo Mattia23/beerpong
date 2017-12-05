@@ -1,20 +1,17 @@
 package com.mirri.mirribilandia.ui;
 
-import com.mirri.mirribilandia.ui.quote.ListActivity;
+import com.mirri.mirribilandia.ui.attraction.AttractionListFragment;
+import com.mirri.mirribilandia.ui.base.BaseActivity;
 
-public class HotelActivity extends ListActivity {
+public class HotelActivity extends BaseActivity implements AttractionListFragment.Callback {
+
     @Override
     public void onItemSelected(String id) {
 
     }
 
     @Override
-    protected void setupDetailFragment() {
-
-    }
-
-    @Override
-    protected int getSelfNavDrawerItem() {
-        return 0;
+    public boolean providesActivityToolbar() {
+        return false;
     }
 }

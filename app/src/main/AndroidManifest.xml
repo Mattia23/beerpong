@@ -19,7 +19,13 @@
         <activity android:name=".ui.MapActivity"
             android:label="Map"
             android:parentActivityName=".ui.AttractionActivity"/>
-        <activity android:name=".ui.quote.ArticleDetailActivity"
+        <activity android:name=".ui.attraction.AttractionDetailActivity"
+            android:label=""
+            android:parentActivityName=".ui.AttractionActivity"/>
+        <activity android:name=".ui.RestaurantActivity"
+            android:label=""
+            android:parentActivityName=".ui.AttractionActivity"/>
+        <activity android:name=".ui.restaurant.RestaurantDetailActivity"
             android:label=""
             android:parentActivityName=".ui.AttractionActivity"/>
         <activity android:name=".ui.ViewSamplesActivity"
@@ -27,9 +33,6 @@
             android:parentActivityName=".ui.AttractionActivity"/>
         <activity android:name=".ui.EventActivity"
             android:label="Events"
-            android:parentActivityName=".ui.AttractionActivity"/>
-        <activity android:name=".ui.RestaurantActivity"
-            android:label="Restaurants/Bars"
             android:parentActivityName=".ui.AttractionActivity"/>
         <activity android:name=".ui.HotelActivity"
             android:label="Hotels"

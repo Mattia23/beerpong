@@ -3,8 +3,8 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/article_list"
-    android:name="com.mirri.mirribilandia.ui.quote.ArticleListFragment"
+    android:name="com.mirri.mirribilandia.ui.restaurant.RestaurantListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.quote.ListActivity"
+    tools:context=".ui.RestaurantActivity"
     tools:layout="@android:layout/list_content"/>

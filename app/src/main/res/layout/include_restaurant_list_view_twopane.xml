@@ -6,19 +6,19 @@
     android:divider="@drawable/divider"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context=".ui.quote.ListActivity"
+    tools:context=".ui.RestaurantActivity"
     android:baselineAligned="false">
 
     <fragment
         android:id="@+id/article_list"
-        android:name="com.mirri.mirribilandia.ui.quote.ArticleListFragment"
+        android:name="com.mirri.mirribilandia.ui.restaurant.RestaurantListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
         tools:layout="@android:layout/list_content"/>
 
     <FrameLayout
-        android:id="@+id/article_detail_container"
+        android:id="@+id/article_detail_container2"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="5"/>

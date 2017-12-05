@@ -1,4 +1,4 @@
-package com.mirri.mirribilandia.ui.quote;
+package com.mirri.mirribilandia.ui.attraction;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -26,7 +26,7 @@ import com.mirri.mirribilandia.item.AttractionContent;
 /**
  * Shows a list of all available quotes.
  */
-public class ArticleListFragment extends ListFragment {
+public class AttractionListFragment extends ListFragment {
 
     private Callback callback = dummyCallback;
 
@@ -49,7 +49,7 @@ public class ArticleListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(new MyListAdapter());
+        setListAdapter(new AttractionListAdapter());
         setHasOptionsMenu(true);
     }
 
@@ -94,7 +94,7 @@ public class ArticleListFragment extends ListFragment {
         callback = (Callback) context;
     }
 
-    private class MyListAdapter extends BaseAdapter {
+    private class AttractionListAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -134,6 +134,6 @@ public class ArticleListFragment extends ListFragment {
         }
     }
 
-    public ArticleListFragment() {
+    public AttractionListFragment() {
     }
 }

@@ -1,4 +1,4 @@
-package com.mirri.mirribilandia.ui.quote;
+package com.mirri.mirribilandia.ui.attraction;
 
 import android.os.Bundle;
 
@@ -6,10 +6,10 @@ import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 
 /**
- * Simple wrapper for {@link ArticleDetailFragment}
+ * Simple wrapper for {@link AttractionDetailFragment}
  * This wrapper is only used in single pan mode (= on smartphones)
  */
-public class ArticleDetailActivity extends BaseActivity {
+public class AttractionDetailActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class ArticleDetailActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        ArticleDetailFragment fragment =  ArticleDetailFragment.newInstance(getIntent().getStringExtra(ArticleDetailFragment.ARG_ITEM_ID));
+        AttractionDetailFragment fragment =  AttractionDetailFragment.newInstance(getIntent().getStringExtra(AttractionDetailFragment.ARG_ITEM_ID));
         getFragmentManager().beginTransaction().replace(R.id.article_detail_container, fragment).commit();
     }
 

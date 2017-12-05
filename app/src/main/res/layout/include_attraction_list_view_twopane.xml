@@ -6,12 +6,12 @@
     android:divider="@drawable/divider"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="ui.quote.ListActivity"
+    tools:context=".ui.AttractionActivity"
     android:baselineAligned="false">
 
     <fragment
         android:id="@+id/article_list"
-        android:name="com.mirri.mirribilandia.ui.quote.ArticleListFragment"
+        android:name="com.mirri.mirribilandia.ui.attraction.AttractionListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"

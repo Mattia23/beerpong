@@ -20,7 +20,7 @@ public class AttractionContent {
     public static final Map<String, AttractionItem> ITEM_MAP = new HashMap<>(5);
 
     static {
-        addItem(new AttractionItem("1", R.drawable.p1, "Quote #1", "Steve Jobs", "Focusing is about saying No."));
+        addItem(new AttractionItem("1", R.drawable.p1, "ciaosuper #1", "Steve Jobs", "Focusing is about saying No."));
         addItem(new AttractionItem("2", R.drawable.p2, "Quote #2", "Napoleon Hill","A quitter never wins and a winner never quits."));
         addItem(new AttractionItem("3", R.drawable.p3, "Quote #3", "Pablo Picaso", "Action is the foundational key to all success."));
         addItem(new AttractionItem("4", R.drawable.p4, "Quote #4", "Napoleon Hill","Our only limitations are those we set up in our own minds."));

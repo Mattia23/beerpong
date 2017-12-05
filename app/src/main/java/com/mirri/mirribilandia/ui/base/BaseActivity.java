@@ -13,7 +13,9 @@ import android.view.MenuItem;
 import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.ui.AttractionActivity;
 import com.mirri.mirribilandia.ui.EventActivity;
+import com.mirri.mirribilandia.ui.HotelActivity;
 import com.mirri.mirribilandia.ui.MapActivity;
+import com.mirri.mirribilandia.ui.RestaurantActivity;
 
 import static com.mirri.mirribilandia.util.LogUtil.logD;
 import static com.mirri.mirribilandia.util.LogUtil.makeLogTag;
@@ -115,6 +117,16 @@ public abstract class BaseActivity extends AppCompatActivity {
                 break;
             case R.id.nav_events:
                 intent = new Intent(this, EventActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.nav_restaurant:
+                intent = new Intent(this, RestaurantActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.nav_hotels:
+                intent = new Intent(this, HotelActivity.class);
                 startActivity(intent);
                 finish();
                 break;
