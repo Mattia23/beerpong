@@ -4,16 +4,22 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 
 public class MapActivity extends BaseActivity {
+
+    SubsamplingScaleImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         setupToolbar();
+        imageView = (SubsamplingScaleImageView) findViewById(R.id.imageView);
+        imageView.setImage(ImageSource.resource(R.drawable.mappa));
     }
 
     private void setupToolbar() {

@@ -16,6 +16,7 @@ import com.mirri.mirribilandia.ui.EventActivity;
 import com.mirri.mirribilandia.ui.HotelActivity;
 import com.mirri.mirribilandia.ui.MapActivity;
 import com.mirri.mirribilandia.ui.RestaurantActivity;
+import com.mirri.mirribilandia.ui.PhotoGridActivity;
 
 import static com.mirri.mirribilandia.util.LogUtil.logD;
 import static com.mirri.mirribilandia.util.LogUtil.makeLogTag;
@@ -127,6 +128,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                 break;
             case R.id.nav_hotels:
                 intent = new Intent(this, HotelActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.nav_photos:
+                intent = new Intent(this, PhotoGridActivity.class);
                 startActivity(intent);
                 finish();
                 break;
