@@ -1,7 +1,11 @@
 package com.mirri.mirribilandia.ui;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -35,6 +39,9 @@ public class AttractionActivity extends BaseActivity implements AttractionListFr
 
         if (savedInstanceState == null && twoPaneMode) {
             setupDetailFragment();
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 1);
         }
     }
 

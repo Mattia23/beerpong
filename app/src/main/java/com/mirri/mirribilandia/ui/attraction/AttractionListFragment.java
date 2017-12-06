@@ -117,11 +117,11 @@ public class AttractionListFragment extends ListFragment {
                 convertView = LayoutInflater.from(getActivity()).inflate(R.layout.list_item_article, container, false);
             }
 
-            final AttractionContent.AttractionItem item = (AttractionContent.AttractionItem) getItem(position);
-            ((TextView) convertView.findViewById(R.id.article_title)).setText(item.title);
-            ((TextView) convertView.findViewById(R.id.article_subtitle)).setText(item.author);
+            final AttractionContent.AttractionItem attractionItem = (AttractionContent.AttractionItem) getItem(position);
+            ((TextView) convertView.findViewById(R.id.article_title)).setText(attractionItem.name);
+            ((TextView) convertView.findViewById(R.id.article_subtitle)).setText("Tempo di attesa: " + attractionItem.waitingTime + " minuti");
             final ImageView img = convertView.findViewById(R.id.thumbnail);
-            Glide.with(getActivity()).load(item.photoId).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
+            Glide.with(getActivity()).load(attractionItem.image).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
                 @Override
                 protected void setResource(Bitmap resource) {
                     RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getActivity().getResources(), resource);

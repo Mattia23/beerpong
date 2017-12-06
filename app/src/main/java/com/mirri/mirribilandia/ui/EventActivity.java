@@ -17,9 +17,6 @@ import android.widget.TextView;
 import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 
-/**
- * This Activity provides several settings. Activity contains {@link PreferenceFragment} as inner class.
- */
 public class EventActivity extends BaseActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -96,7 +93,7 @@ public class EventActivity extends BaseActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_events_activity, container, false);
-            TextView textView = rootView.findViewById(R.id.section_label);
+            TextView textView = rootView.findViewById(R.id.description);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }

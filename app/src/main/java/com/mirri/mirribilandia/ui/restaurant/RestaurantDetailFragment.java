@@ -1,7 +1,10 @@
 package com.mirri.mirribilandia.ui.restaurant;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,8 @@ import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.item.RestaurantContent;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 import com.mirri.mirribilandia.ui.base.BaseFragment;
+
+import static com.mirri.mirribilandia.R.id.distance;
 
 /**
  * Shows the name detail page.
@@ -30,9 +35,7 @@ public class RestaurantDetailFragment extends BaseFragment {
      */
     private RestaurantContent.RestaurantItem restaurantItem;
 
-    TextView description;
-    ImageView backdropImg;
-    CollapsingToolbarLayout collapsingToolbar;
+    ImageView image;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,9 +52,11 @@ public class RestaurantDetailFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflateAndBind(inflater, container, R.layout.fragment_restaurant_detail);
-        description = rootView.findViewById(R.id.description);
-        backdropImg = rootView.findViewById(R.id.backdrop);
-        collapsingToolbar = rootView.findViewById(R.id.collapsing_toolbar);
+        TextView description = rootView.findViewById(R.id.description);
+        TextView distance = rootView.findViewById(R.id.distance);
+        image = rootView.findViewById(R.id.backdrop);
+        FloatingActionButton phoneButton = rootView.findViewById(R.id.floatingActionButton);
+        CollapsingToolbarLayout name = rootView.findViewById(R.id.collapsing_toolbar);
         if (!((BaseActivity) getActivity()).providesActivityToolbar()) {
             // No Toolbar present. Set include_toolbar:
             ((BaseActivity) getActivity()).setToolbar((Toolbar) rootView.findViewById(R.id.toolbar));
@@ -59,15 +64,24 @@ public class RestaurantDetailFragment extends BaseFragment {
 
         if (restaurantItem != null) {
             loadBackdrop();
-            collapsingToolbar.setTitle(restaurantItem.name);
+            name.setTitle(restaurantItem.name);
             description.setText(restaurantItem.description);
+            //distance.setText(restaurantItem.distance);
+            phoneButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + restaurantItem.phone));
+                    startActivity(callIntent);
+                }
+            });
         }
 
         return rootView;
     }
 
     private void loadBackdrop() {
-        Glide.with(this).load(restaurantItem.photoId).centerCrop().into(backdropImg);
+        Glide.with(this).load(restaurantItem.image).centerCrop().into(image);
     }
 
     public static RestaurantDetailFragment newInstance(String itemID) {

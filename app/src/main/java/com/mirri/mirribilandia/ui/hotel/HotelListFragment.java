@@ -116,11 +116,11 @@ public class HotelListFragment extends ListFragment {
                 convertView = LayoutInflater.from(getActivity()).inflate(R.layout.list_item_article, container, false);
             }
 
-            final HotelContent.HotelItem item = (HotelContent.HotelItem)  getItem(position);
-            ((TextView) convertView.findViewById(R.id.article_title)).setText(item.name);
-            ((TextView) convertView.findViewById(R.id.article_subtitle)).setText(item.description);
+            final HotelContent.HotelItem hotelItem = (HotelContent.HotelItem)  getItem(position);
+            ((TextView) convertView.findViewById(R.id.article_title)).setText(hotelItem.name);
+            ((TextView) convertView.findViewById(R.id.article_subtitle)).setText("Distanza dal parco divertimenti: " + hotelItem.distance);
             final ImageView img = convertView.findViewById(R.id.thumbnail);
-            Glide.with(getActivity()).load(item.photoId).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
+            Glide.with(getActivity()).load(hotelItem.image).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
                 @Override
                 protected void setResource(Bitmap resource) {
                     RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getActivity().getResources(), resource);

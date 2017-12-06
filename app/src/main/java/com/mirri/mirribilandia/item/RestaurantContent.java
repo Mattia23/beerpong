@@ -9,23 +9,14 @@ import java.util.List;
 import java.util.Map;
 
 public class RestaurantContent {
-    /**
-     * An array of sample items.
-     */
-    public static final List<RestaurantContent.RestaurantItem> ITEMS = new ArrayList<>();
 
-    /**
-     * A map of sample items. Key: sample ID; Value: Item.
-     */
+    public static final List<RestaurantContent.RestaurantItem> ITEMS = new ArrayList<>();
     public static final Map<String, RestaurantContent.RestaurantItem> ITEM_MAP = new HashMap<>(5);
 
     static {
-        addItem(new RestaurantContent.RestaurantItem("1", R.drawable.p1, "CIAO #1", "Steve Jobs", ""));
-        addItem(new RestaurantContent.RestaurantItem("3", R.drawable.p3, "Quote #3", "Pablo Picaso", ""));
-        addItem(new RestaurantContent.RestaurantItem("4", R.drawable.p4, "Quote #4", "Napoleon Hill", ""));
-        addItem(new RestaurantContent.RestaurantItem("2", R.drawable.p2, "Quote #2", "Napoleon Hill", ""));
-        addItem(new RestaurantContent.RestaurantItem("5", R.drawable.p5, "Quote #5", "Steve Jobs", ""));
-        addItem(new RestaurantContent.RestaurantItem("5", R.drawable.p5, "Quote #5", "Steve Jobs", ""));
+        addItem(new RestaurantContent.RestaurantItem("1", R.drawable.p1, "BAR #1", "Un bel bar", "3495025478"));
+        addItem(new RestaurantContent.RestaurantItem("3", R.drawable.p3, "RISTORANTE #3", "Un bel ristorante", "3025698745"));
+        addItem(new RestaurantContent.RestaurantItem("4", R.drawable.p4, "BAR #4", "Un bel bar", "365874105"));
     }
 
     private static void addItem(RestaurantContent.RestaurantItem item) {
@@ -35,14 +26,14 @@ public class RestaurantContent {
 
     public static class RestaurantItem {
         public final String id;
-        public final int photoId;
+        public final int image;
         public final String name;
         public final String description;
         public final String phone;
 
-        RestaurantItem(String id, int photoId, String name, String description, String phone) {
+        RestaurantItem(String id, int image, String name, String description, String phone) {
             this.id = id;
-            this.photoId = photoId;
+            this.image = image;
             this.name = name;
             this.description = description;
             this.phone = phone;

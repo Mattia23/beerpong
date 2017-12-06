@@ -10,19 +10,12 @@ import java.util.Map;
 
 public class HotelContent {
 
-    /**
-     * An array of sample items.
-     */
     public static final List<HotelContent.HotelItem> ITEMS = new ArrayList<>();
-
-    /**
-     * A map of sample items. Key: sample ID; Value: Item.
-     */
-    public static final Map<String, HotelContent.HotelItem> ITEM_MAP = new HashMap<>(5);
+    public static final Map<String, HotelContent.HotelItem> ITEM_MAP = new HashMap<>(2);
 
     static {
-        addItem(new HotelContent.HotelItem("1", R.drawable.p1, "Hotel #1", "Steve Jobs", "Focusing is about saying No."));
-        addItem(new HotelContent.HotelItem("2", R.drawable.p2, "Hotel #2", "Napoleon Hill","A quitter never wins and a winner never quits."));
+        addItem(new HotelContent.HotelItem("1", R.drawable.p1, "Hotel #1", "Un bell'hotel", "3492056874", 5));
+        addItem(new HotelContent.HotelItem("2", R.drawable.p2, "Hotel #2", "Un bell'hotel", "3492056874", 5));
     }
 
     private static void addItem(HotelContent.HotelItem item) {
@@ -32,17 +25,19 @@ public class HotelContent {
 
     public static class HotelItem {
         public final String id;
-        public final int photoId;
+        public final int image;
         public final String name;
         public final String description;
         public final String phone;
+        public final int distance;
 
-        HotelItem(String id, int photoId, String name, String description, String phone) {
+        HotelItem(String id, int image, String name, String description, String phone, int distance) {
             this.id = id;
-            this.photoId = photoId;
+            this.image = image;
             this.name = name;
             this.description = description;
             this.phone = phone;
+            this.distance = distance;
         }
     }
 }
