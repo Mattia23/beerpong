@@ -14,20 +14,33 @@ import android.widget.Toast;
 
 import com.mirri.mirribilandia.R;
 
-public class LoginActivity extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
+
+import javax.crypto.NoSuchPaddingException;
+
+public class LoginActivity extends AppCompatActivity implements UrlConnectionAsyncTask.UrlConnectionListener {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    EditText emailText;
-    EditText passwordText;
-    Button loginButton;
-    TextView signupLink;
+    private EditText usernameText;
+    private EditText passwordText;
+    private Button loginButton;
+    private TextView signupLink;
+    private String username;
+    private String password;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        emailText = (EditText) findViewById(R.id.input_email);
+        usernameText = (EditText) findViewById(R.id.input_username);
         passwordText = (EditText) findViewById(R.id.input_password);
         loginButton = (Button) findViewById(R.id.btn_login);
         signupLink = (TextView) findViewById(R.id.link_signup);
@@ -55,45 +68,10 @@ public class LoginActivity extends AppCompatActivity {
     public void login() {
         Log.d(TAG, "Login");
 
-        if (!validate()) {
-            onLoginFailed();
-            return;
-        }
+        username = usernameText.getText().toString();
+        password = passwordText.getText().toString();
 
-        loginButton.setEnabled(false);
-
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Autenticazione...");
-        progressDialog.show();
-
-        String email = emailText.getText().toString();
-        String password = passwordText.getText().toString();
-
-        // TODO: Implement your own authentication logic here.
-
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SIGNUP) {
-            if (resultCode == RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
-                // By default we just finish the Activity and log them in automatically
-                this.finish();
-            }
-        }
+        checkLogin(username,password);
     }
 
     @Override
@@ -102,37 +80,46 @@ public class LoginActivity extends AppCompatActivity {
         moveTaskToBack(true);
     }
 
-    public void onLoginSuccess() {
-        loginButton.setEnabled(true);
-        finish();
-    }
-
-    public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login fallito", Toast.LENGTH_LONG).show();
-
-        loginButton.setEnabled(true);
-    }
-
-    public boolean validate() {
-        boolean valid = true;
-
-        String email = emailText.getText().toString();
-        String password = passwordText.getText().toString();
-
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailText.setError("inserisci una email valida");
-            valid = false;
-        } else {
-            emailText.setError(null);
+    private void checkLogin(String username, String password) {
+        final Bundle data = new Bundle();
+        data.putString("username", username);
+        data.putString("password", password);
+        try {
+            new UrlConnectionAsyncTask(new URL(getString(R.string.login_url)), this, getApplicationContext()).execute(data);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
-
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            passwordText.setError("inserire una password compresa tra 4 e 10 caratteri");
-            valid = false;
-        } else {
-            passwordText.setError(null);
-        }
-
-        return valid;
     }
+
+    @Override
+    public void handleResponse(JSONObject response, Bundle extra) {
+        if(response.length() != 0) {
+            Log.d(TAG, response.toString());
+            try {
+                final int code = response.getInt("code");
+
+                if(code == LOGIN_SUCCESS) {
+
+                    final Utente utente = new UtenteImpl(response.getJSONObject("extra").getJSONObject("utente"));
+                    AccountManager.saveUser(utente, getApplicationContext());
+                    //Passa in un'altra activity
+                    Toast.makeText(getApplicationContext(), "Sono loggato merdeeee", Toast.LENGTH_LONG).show();
+                } else if(code == LOGIN_FAILED) {
+                    Toast.makeText(getApplicationContext(), "Username e/o password errati", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Errore sconosciuto, riprovare", Toast.LENGTH_LONG).show();
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Errore durante il login", Toast.LENGTH_LONG).show();
+            }
+
+        } else {
+            Log.d(TAG, "Errore durante il login");
+            Toast.makeText(getApplicationContext(), "Errore durante il login", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
 }
