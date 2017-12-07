@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
                     final Utente utente = new UtenteImpl(response.getJSONObject("extra").getJSONObject("utente"));
                     AccountManager.saveUser(utente, getApplicationContext());
                     //Passa in un'altra activity
-                    Toast.makeText(getApplicationContext(), "Sono loggato merdeeee", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Sono loggato", Toast.LENGTH_LONG).show();
                 } else if(code == LOGIN_FAILED) {
                     Toast.makeText(getApplicationContext(), "Username e/o password errati", Toast.LENGTH_LONG).show();
                 } else {

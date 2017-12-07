@@ -12,21 +12,30 @@ import android.widget.Toast;
 
 import com.mirri.mirribilandia.R;
 
-public class SignupActivity extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class SignupActivity extends AppCompatActivity implements UrlConnectionAsyncTask.UrlConnectionListener {
     private static final String TAG = "SignupActivity";
 
-    EditText nameText;
-    EditText emailText;
-    EditText passwordText;
-    Button signupButton;
-    TextView loginLink;
+    private EditText nameText;
+    private EditText surnameText;
+    private EditText usernameText;
+    private EditText passwordText;
+    private Button signupButton;
+    private TextView loginLink;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         nameText = (EditText) findViewById(R.id.input_name);
-        emailText = (EditText) findViewById(R.id.input_email);
+        surnameText = (EditText) findViewById(R.id.input_surname);
+        usernameText = (EditText) findViewById(R.id.input_username);
         passwordText = (EditText) findViewById(R.id.input_password);
         signupButton = (Button) findViewById(R.id.btn_signup);
         loginLink = (TextView) findViewById(R.id.link_login);
@@ -51,45 +60,47 @@ public class SignupActivity extends AppCompatActivity {
         Log.d(TAG, "Signup");
 
         if (!validate()) {
-            onSignupFailed();
+            onSignupFailed("");
             return;
         }
 
         signupButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this);
+        progressDialog = new ProgressDialog(SignupActivity.this);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creazione account...");
         progressDialog.show();
 
         String name = nameText.getText().toString();
-        String email = emailText.getText().toString();
+        String surname = surnameText.getText().toString();
+        String username = usernameText.getText().toString();
         String password = passwordText.getText().toString();
 
-        // TODO: Implement your own signup logic here.
+        try {
+            URL url = new URL(getString(R.string.add_new_user));
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
+            final Bundle data = new Bundle();
+            data.putString("username", username);
+            data.putString("password", password);
+            data.putString("nome", name);
+            data.putString("cognome", surname);
+
+            new UrlConnectionAsyncTask(url, SignupActivity.this, getApplicationContext()).execute(data);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
 
-    public void onSignupSuccess() {
+    public void onSignupSuccess(String s) {
+        Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
         signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
     }
 
-    public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Login fallito", Toast.LENGTH_LONG).show();
-
+    public void onSignupFailed(String s) {
+        Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
         signupButton.setEnabled(true);
     }
 
@@ -97,30 +108,51 @@ public class SignupActivity extends AppCompatActivity {
         boolean valid = true;
 
         String name = nameText.getText().toString();
-        String email = emailText.getText().toString();
+        String username = usernameText.getText().toString();
         String password = passwordText.getText().toString();
 
         if (name.isEmpty() || name.length() < 3) {
-            nameText.setError("minimo 3 caratteri");
+            nameText.setError("Minimo 3 caratteri");
             valid = false;
         } else {
             nameText.setError(null);
         }
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailText.setError("inserire una email valida");
+        if (username.isEmpty() || username.length() < 4) {
+            usernameText.setError("Inserire un username valido");
             valid = false;
         } else {
-            emailText.setError(null);
+            usernameText.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            passwordText.setError("inserire una password compresa tra 4 e 10 caratteri");
+        if (password.isEmpty() || password.length() < 4 || password.length() > 16) {
+            passwordText.setError("Inserire una password compresa tra 4 e 16 caratteri");
             valid = false;
         } else {
             passwordText.setError(null);
         }
 
         return valid;
+    }
+
+    @Override
+    public void handleResponse(final JSONObject response, Bundle extra) {
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        String msgResponse;
+                        try {
+                            msgResponse = response.getString("message");
+                        } catch (JSONException e) {
+                            msgResponse = "failed";
+                        }
+                        if(msgResponse.equals("Utente aggiunto correttamente")) {
+                            onSignupSuccess(msgResponse);
+                        } else {
+                            onSignupFailed(msgResponse);
+                        }
+                        progressDialog.dismiss();
+                    }
+                }, 10);
     }
 }

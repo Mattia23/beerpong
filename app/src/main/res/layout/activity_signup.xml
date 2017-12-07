@@ -32,17 +32,30 @@
                 android:hint="Name" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Email Label -->
+        <!--  Surname Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_email"
+            <EditText android:id="@+id/input_surname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:hint="Surname" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Username Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/input_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="Email" />
+                android:hint="Username" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->
