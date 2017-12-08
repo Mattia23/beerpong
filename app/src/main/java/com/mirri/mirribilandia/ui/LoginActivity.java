@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
     }
 
     public void login() {
-        Log.d(TAG, "Login");
+        Log.d(TAG, "login");
 
         username = usernameText.getText().toString();
         password = passwordText.getText().toString();

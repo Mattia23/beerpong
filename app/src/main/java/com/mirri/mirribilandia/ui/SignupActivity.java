@@ -50,7 +50,7 @@ public class SignupActivity extends AppCompatActivity implements UrlConnectionAs
         loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Finish the registration screen and return to the Login activity
+                // Finish the registration screen and return to the login activity
                 finish();
             }
         });
