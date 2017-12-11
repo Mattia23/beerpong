@@ -2,6 +2,7 @@ package com.mirri.mirribilandia.ui;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -28,6 +29,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.crypto.NoSuchPaddingException;
+
+import static com.mirri.mirribilandia.util.Utilities.MY_PREFS_NAME;
 
 public class LoginActivity extends AppCompatActivity implements UrlConnectionAsyncTask.UrlConnectionListener {
     private static final String TAG = "LoginActivity";
@@ -73,6 +76,14 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
+
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        String username = prefs.getString("username", null);
+        String password = prefs.getString("password", null);
+        if (username != null && password != null) {
+            usernameText.setText(username);
+            passwordText.setText(password);
+        }
     }
 
     public void login() {
@@ -113,6 +124,12 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
                     final Utente utente = new UtenteImpl(response.getJSONObject("extra").getJSONObject("utente"));
                     AccountManager.saveUser(utente, getApplicationContext());
                     //Passa in un'altra activity
+
+                    SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                    editor.putString("username", username);
+                    editor.putString("password", password);
+                    editor.apply();
+
                     startActivity(new Intent(this, AttractionActivity.class));
                     finish();
                     //Toast.makeText(getApplicationContext(), "Sono loggato", Toast.LENGTH_LONG).show();

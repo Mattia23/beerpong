@@ -16,6 +16,8 @@ public final class Utilities {
 
 	private Utilities() { }
 
+
+	public static String MY_PREFS_NAME = "user_pref";
 	public static String BEACON_ID = "";
 
 	/**
