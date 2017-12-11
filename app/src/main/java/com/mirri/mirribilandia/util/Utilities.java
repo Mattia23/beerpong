@@ -16,6 +16,8 @@ public final class Utilities {
 
 	private Utilities() { }
 
+	public static String BEACON_ID = "";
+
 	/**
 	 * Legge una stringa da uno stream di dati.
 	 * @param inputStream

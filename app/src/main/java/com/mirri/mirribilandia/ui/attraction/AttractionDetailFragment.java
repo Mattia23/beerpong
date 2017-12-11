@@ -19,6 +19,8 @@ import com.mirri.mirribilandia.ui.ChatActivity;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 import com.mirri.mirribilandia.ui.base.BaseFragment;
 
+import static com.mirri.mirribilandia.util.Utilities.BEACON_ID;
+
 public class AttractionDetailFragment extends BaseFragment {
 
     public static final String ARG_ITEM_ID = "item_id";
@@ -47,7 +49,6 @@ public class AttractionDetailFragment extends BaseFragment {
         TextView buildYear = rootView.findViewById(R.id.buildYear);
         image = rootView.findViewById(R.id.backdrop);
         FloatingActionButton chatButton = rootView.findViewById(R.id.floatingActionButton);
-        //chatButton.setEnabled(false);
         CollapsingToolbarLayout name = rootView.findViewById(R.id.collapsing_toolbar);
         if (!((BaseActivity) getActivity()).providesActivityToolbar()) {
             // No Toolbar present. Set include_toolbar:
@@ -65,20 +66,12 @@ public class AttractionDetailFragment extends BaseFragment {
             chatButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(getActivity(), ChatActivity.class));
+                    if(attractionItem.idBeacon.equals(BEACON_ID)) {
+                        startActivity(new Intent(getActivity(), ChatActivity.class));
+                    }
                 }
             });
-            /*
-            if(attractionItem.idBeacon == BEACONCONNESSO){
-                chatButton.setEnabled(true);
-                chatButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(getActivity(), ChatActivity.class);
-                }
-            });
-            }
-            */
+
         }
 
         return rootView;

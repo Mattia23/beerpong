@@ -1,6 +1,8 @@
 package com.mirri.mirribilandia.ui;
 
 import android.Manifest;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.mirri.mirribilandia.R;
+import com.mirri.mirribilandia.beacon.BeaconService;
 import com.mirri.mirribilandia.item.AttractionContent;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 import com.mirri.mirribilandia.ui.attraction.AttractionDetailActivity;
@@ -40,9 +43,11 @@ public class AttractionActivity extends BaseActivity implements AttractionListFr
         if (savedInstanceState == null && twoPaneMode) {
             setupDetailFragment();
         }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 1);
+
+        if(!isMyServiceRunning(BeaconService.class)){
+            startService(new Intent(this, BeaconService.class));
         }
+
     }
 
     /**
@@ -110,5 +115,15 @@ public class AttractionActivity extends BaseActivity implements AttractionListFr
     @Override
     public boolean providesActivityToolbar() {
         return true;
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

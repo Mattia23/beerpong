@@ -13,7 +13,7 @@ public class AttractionContent {
     public static final Map<String, AttractionItem> ITEM_MAP = new HashMap<>(5);
 
     static {
-        addItem(new AttractionItem("1", R.drawable.p1, "ATTRAZIONE #1", "Una bellissima attrazione", 5, 120, 30, 2017, "cB5Hjkrvf"));
+        addItem(new AttractionItem("1", R.drawable.p1, "ATTRAZIONE #1", "Una bellissima attrazione", 5, 120, 30, 2017, "[d98000b71678]"));
         addItem(new AttractionItem("2", R.drawable.p2, "ATTRAZIONE #2", "Una bellissima attrazione", 5, 120, 30, 2017, "cB5Hjkrvf"));
         addItem(new AttractionItem("3", R.drawable.p3, "ATTRAZIONE #3", "Una bellissima attrazione", 5, 120, 30, 2017, "cB5Hjkrvf"));
         addItem(new AttractionItem("4", R.drawable.p4, "ATTRAZIONE #4", "Una bellissima attrazione", 5, 120, 30, 2017, "cB5Hjkrvf"));

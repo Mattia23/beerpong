@@ -1,7 +1,11 @@
 package com.mirri.mirribilandia.ui;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -63,6 +67,12 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
                 startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 1);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
     }
 
     public void login() {
@@ -103,7 +113,9 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
                     final Utente utente = new UtenteImpl(response.getJSONObject("extra").getJSONObject("utente"));
                     AccountManager.saveUser(utente, getApplicationContext());
                     //Passa in un'altra activity
-                    Toast.makeText(getApplicationContext(), "Sono loggato", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(this, AttractionActivity.class));
+                    finish();
+                    //Toast.makeText(getApplicationContext(), "Sono loggato", Toast.LENGTH_LONG).show();
                 } else if(code == LOGIN_FAILED) {
                     Toast.makeText(getApplicationContext(), "Username e/o password errati", Toast.LENGTH_LONG).show();
                 } else {
