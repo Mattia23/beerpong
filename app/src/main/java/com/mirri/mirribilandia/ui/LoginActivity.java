@@ -18,6 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mirri.mirribilandia.R;
+import com.mirri.mirribilandia.item.AttractionContent;
+import com.mirri.mirribilandia.item.EventContent;
+import com.mirri.mirribilandia.item.HotelContent;
+import com.mirri.mirribilandia.item.PhotoContent;
+import com.mirri.mirribilandia.item.RestaurantContent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,24 +58,22 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
         signupLink = (TextView) findViewById(R.id.link_signup);
 
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                login();
-                loginButton.setEnabled(false);
-            }
+        loginButton.setOnClickListener(v -> {
+            login();
+            loginButton.setEnabled(false);
         });
 
-        signupLink.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
-            }
+        signupLink.setOnClickListener(v -> {
+            // Start the Signup activity
+            Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+            startActivityForResult(intent, REQUEST_SIGNUP);
         });
+
+        new AttractionContent(getApplicationContext());
+        new HotelContent(getApplicationContext());
+        new RestaurantContent(getApplicationContext());
+        new EventContent(getApplicationContext());
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 1);
         }
@@ -127,6 +130,7 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
                 final int code = response.getInt("code");
 
                 if(code == LOGIN_SUCCESS) {
+                    new PhotoContent(getApplicationContext(), username, password);
 
                     final Utente utente = new UtenteImpl(response.getJSONObject("extra").getJSONObject("utente"));
                     AccountManager.saveUser(utente, getApplicationContext());

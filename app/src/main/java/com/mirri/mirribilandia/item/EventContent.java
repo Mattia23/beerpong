@@ -1,6 +1,5 @@
 package com.mirri.mirribilandia.item;
 
-
 import android.content.Context;
 import android.os.Bundle;
 
@@ -18,20 +17,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HotelContent implements UrlConnectionAsyncTask.UrlConnectionListener{
 
-    public static final List<HotelContent.HotelItem> ITEMS = new ArrayList<>();
-    public static final Map<String, HotelContent.HotelItem> ITEM_MAP = new HashMap<>();
+public class EventContent implements UrlConnectionAsyncTask.UrlConnectionListener {
+    public static final List<EventContent.EventItem> ITEMS = new ArrayList<>();
+    public static final Map<String, EventContent.EventItem> ITEM_MAP = new HashMap<>();
 
-    public HotelContent(Context context){
+    public EventContent(Context context){
         try {
-            new UrlConnectionAsyncTask(new URL(context.getString(R.string.hotel_url)), this, context).execute(new Bundle());
+            new UrlConnectionAsyncTask(new URL(context.getString(R.string.photo_url)), this, context).execute(new Bundle());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
 
-    private static void addItem(HotelContent.HotelItem item) {
+    private static void addItem(EventContent.EventItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
@@ -44,7 +43,7 @@ public class HotelContent implements UrlConnectionAsyncTask.UrlConnectionListene
                 if(code == 2) {
                     final JSONArray attractions = response.getJSONObject("extra").getJSONArray("data");
                     for(int i = 0; i < attractions.length(); i++) {
-                        addItem(new HotelItem(attractions.getJSONObject(i).getString("id"), R.drawable.p1, attractions.getJSONObject(i).getString("nome"), attractions.getJSONObject(i).getString("descrizione"), attractions.getJSONObject(i).getString("tel"), attractions.getJSONObject(i).getInt("distanza")));
+                        addItem(new EventItem(attractions.getJSONObject(i).getString("id"), attractions.getJSONObject(i).getString("nome"), attractions.getJSONObject(i).getString("descrizione"), attractions.getJSONObject(i).getString("attrazione"), attractions.getJSONObject(i).getString("data")));
                     }
                 } else {
                     //Toast.makeText(context, "Errore sconosciuto, riprovare", Toast.LENGTH_LONG).show();
@@ -55,21 +54,19 @@ public class HotelContent implements UrlConnectionAsyncTask.UrlConnectionListene
         }
     }
 
-    public static class HotelItem {
+    public static class EventItem {
         public final String id;
-        public final int image;
         public final String name;
         public final String description;
-        public final String phone;
-        public final int distance;
+        public final String attraction;
+        public final String date;
 
-        HotelItem(String id, int image, String name, String description, String phone, int distance) {
+        EventItem(String id, String name, String description, String attraction, String date) {
             this.id = id;
-            this.image = image;
             this.name = name;
             this.description = description;
-            this.phone = phone;
-            this.distance = distance;
+            this.attraction = attraction;
+            this.date = date;
         }
     }
 }

@@ -28,6 +28,9 @@ import com.mirri.mirribilandia.item.AttractionContent;
  */
 public class AttractionListFragment extends ListFragment {
 
+    public AttractionListFragment() {
+    }
+
     private Callback callback = dummyCallback;
 
     /**
@@ -133,7 +136,5 @@ public class AttractionListFragment extends ListFragment {
             return convertView;
         }
     }
-
-    public AttractionListFragment() {
-    }
 }
+

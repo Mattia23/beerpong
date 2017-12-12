@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mirri.mirribilandia.R;
+import com.mirri.mirribilandia.item.EventContent;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 
 public class EventActivity extends BaseActivity {
@@ -118,13 +119,13 @@ public class EventActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return EventContent.ITEMS.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
+            return EventContent.ITEMS.get(position).name;
+            /*switch (position) {
                 case 0:
                     return "SECTION 1";
                 case 1:
@@ -132,7 +133,7 @@ public class EventActivity extends BaseActivity {
                 case 2:
                     return "SECTION 3";
             }
-            return null;
+            return null;*/
         }
     }
 }

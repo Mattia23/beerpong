@@ -1,27 +1,58 @@
 package com.mirri.mirribilandia.item;
 
 
-import com.mirri.mirribilandia.R;
+import android.content.Context;
+import android.os.Bundle;
 
+import com.mirri.mirribilandia.R;
+import com.mirri.mirribilandia.ui.UrlConnectionAsyncTask;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RestaurantContent {
+public class RestaurantContent implements UrlConnectionAsyncTask.UrlConnectionListener{
 
     public static final List<RestaurantContent.RestaurantItem> ITEMS = new ArrayList<>();
-    public static final Map<String, RestaurantContent.RestaurantItem> ITEM_MAP = new HashMap<>(5);
+    public static final Map<String, RestaurantContent.RestaurantItem> ITEM_MAP = new HashMap<>();
 
-    static {
-        addItem(new RestaurantContent.RestaurantItem("1", R.drawable.p1, "BAR #1", "Un bel bar", "3495025478"));
-        addItem(new RestaurantContent.RestaurantItem("3", R.drawable.p3, "RISTORANTE #3", "Un bel ristorante", "3025698745"));
-        addItem(new RestaurantContent.RestaurantItem("4", R.drawable.p4, "BAR #4", "Un bel bar", "365874105"));
+    public RestaurantContent(Context context) {
+        try {
+            new UrlConnectionAsyncTask(new URL(context.getString(R.string.restaurant_url)), this, context).execute(new Bundle());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void addItem(RestaurantContent.RestaurantItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
+    }
+
+    @Override
+    public void handleResponse(JSONObject response, Bundle extra) {
+        if(response.length() != 0) {
+            try {
+                final int code = response.getInt("code");
+                if(code == 2) {
+                    final JSONArray attractions = response.getJSONObject("extra").getJSONArray("data");
+                    for(int i = 0; i < attractions.length(); i++) {
+                        addItem(new RestaurantItem(attractions.getJSONObject(i).getString("id"), R.drawable.p1, attractions.getJSONObject(i).getString("nome"), attractions.getJSONObject(i).getString("descrizione"), attractions.getJSONObject(i).getString("tel")));
+                    }
+                } else {
+                    //Toast.makeText(context, "Errore sconosciuto, riprovare", Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static class RestaurantItem {

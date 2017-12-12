@@ -15,6 +15,7 @@ import android.widget.ListView;
 import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.beacon.BeaconService;
 import com.mirri.mirribilandia.item.AttractionContent;
+import com.mirri.mirribilandia.item.PhotoContent;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 import com.mirri.mirribilandia.ui.attraction.AttractionDetailActivity;
 import com.mirri.mirribilandia.ui.attraction.AttractionDetailFragment;
@@ -47,7 +48,6 @@ public class AttractionActivity extends BaseActivity implements AttractionListFr
         if(!isMyServiceRunning(BeaconService.class)){
             startService(new Intent(this, BeaconService.class));
         }
-
     }
 
     /**

@@ -1,28 +1,58 @@
 package com.mirri.mirribilandia.item;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.mirri.mirribilandia.R;
+import com.mirri.mirribilandia.ui.UrlConnectionAsyncTask;
 
-public class AttractionContent {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class AttractionContent implements UrlConnectionAsyncTask.UrlConnectionListener{
 
     public static final List<AttractionItem> ITEMS = new ArrayList<>();
-    public static final Map<String, AttractionItem> ITEM_MAP = new HashMap<>(5);
+    public static final Map<String, AttractionItem> ITEM_MAP = new HashMap<>();
 
-    static {
-        addItem(new AttractionItem("1", R.drawable.p1, "ATTRAZIONE #1", "Una bellissima attrazione", 5, 120, 30, 2017, "[d98000b71678]"));
-        addItem(new AttractionItem("2", R.drawable.p2, "ATTRAZIONE #2", "Una bellissima attrazione", 5, 120, 30, 2017, "cB5Hjkrvf"));
-        addItem(new AttractionItem("3", R.drawable.p3, "ATTRAZIONE #3", "Una bellissima attrazione", 5, 120, 30, 2017, "cB5Hjkrvf"));
-        addItem(new AttractionItem("4", R.drawable.p4, "ATTRAZIONE #4", "Una bellissima attrazione", 5, 120, 30, 2017, "cB5Hjkrvf"));
-        addItem(new AttractionItem("5", R.drawable.p5, "ATTRAZIONE #5", "Una bellissima attrazione", 5, 120, 30, 2017, "cB5Hjkrvf"));
+    public AttractionContent(Context context){
+        try {
+            new UrlConnectionAsyncTask(new URL(context.getString(R.string.attraction_url)), this, context).execute(new Bundle());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void addItem(AttractionItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
+    }
+
+    @Override
+    public void handleResponse(JSONObject response, Bundle extra) {
+        if(response.length() != 0) {
+            try {
+                final int code = response.getInt("code");
+                if(code == 2) {
+                    final JSONArray attractions = response.getJSONObject("extra").getJSONArray("data");
+                    for(int i = 0; i < attractions.length(); i++) {
+                        addItem(new AttractionItem(attractions.getJSONObject(i).getString("id"), R.drawable.p1, attractions.getJSONObject(i).getString("nome"), attractions.getJSONObject(i).getString("descrizione"), attractions.getJSONObject(i).getInt("eta_min"), attractions.getJSONObject(i).getInt("alt_min"), attractions.getJSONObject(i).getInt("tempo_attesa"), attractions.getJSONObject(i).getInt("anno_costruzione"), attractions.getJSONObject(i).getString("beacon")));
+                    }
+                } else {
+                    //Toast.makeText(context, "Errore sconosciuto, riprovare", Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static class AttractionItem {
