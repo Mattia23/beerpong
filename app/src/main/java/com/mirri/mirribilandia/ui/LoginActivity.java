@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
             @Override
             public void onClick(View v) {
                 login();
+                loginButton.setEnabled(false);
             }
         });
 
@@ -75,6 +76,12 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         }
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
@@ -140,11 +147,13 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
                 }
 
             } catch (JSONException e) {
+                loginButton.setEnabled(true);
                 e.printStackTrace();
                 Toast.makeText(getApplicationContext(), "Errore durante il login", Toast.LENGTH_LONG).show();
             }
 
         } else {
+            loginButton.setEnabled(true);
             Log.d(TAG, "Errore durante il login");
             Toast.makeText(getApplicationContext(), "Errore durante il login", Toast.LENGTH_LONG).show();
         }
