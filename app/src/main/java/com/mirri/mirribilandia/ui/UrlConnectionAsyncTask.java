@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -30,6 +31,7 @@ public class UrlConnectionAsyncTask extends AsyncTask<Bundle, Void, JSONObject> 
     public interface UrlConnectionListener {
         int LOGIN_SUCCESS = 0;
         int LOGIN_FAILED = -2;
+        int MSG_SENT = 4;
         int GENERIC_ERROR = -4;
 
         /**
@@ -50,6 +52,7 @@ public class UrlConnectionAsyncTask extends AsyncTask<Bundle, Void, JSONObject> 
 
     @Override
     protected JSONObject doInBackground(Bundle... params) {
+
         try {
             final Bundle data = params[0];
 
@@ -68,10 +71,15 @@ public class UrlConnectionAsyncTask extends AsyncTask<Bundle, Void, JSONObject> 
             // Leggo la risposta e creo il json
             if(urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 final InputStream inputStream = urlConnection.getInputStream();
-                final String response = Utilities.readStringFromStream(inputStream);
-                Log.d("applicazione", response);
-                final JSONObject responseJson = new JSONObject(response);
+                String response = Utilities.readStringFromStream(inputStream);
+                Log.d("applicazione",response);
 
+                if(response.contains("password")) {
+                    response = response.substring(1);
+                    response = response.substring(1);
+                }
+
+                final JSONObject responseJson = new JSONObject(response);
                 inputStream.close();
                 urlConnection.disconnect();
 

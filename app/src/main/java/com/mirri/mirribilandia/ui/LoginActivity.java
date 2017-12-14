@@ -125,28 +125,24 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
     @Override
     public void handleResponse(JSONObject response, Bundle extra) {
         if(response.length() != 0) {
-            Log.d(TAG, response.toString());
             try {
                 final int code = response.getInt("code");
-
                 if(code == LOGIN_SUCCESS) {
                     new PhotoContent(getApplicationContext(), username, password);
-
                     final Utente utente = new UtenteImpl(response.getJSONObject("extra").getJSONObject("utente"));
+                    Log.d("applicazione2", "Utente creato correttamente");
                     AccountManager.saveUser(utente, getApplicationContext());
-                    //Passa in un'altra activity
-
                     SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                     editor.putString("username", username);
                     editor.putString("password", password);
                     editor.apply();
-
                     startActivity(new Intent(this, AttractionActivity.class));
                     finish();
-                    //Toast.makeText(getApplicationContext(), "Sono loggato", Toast.LENGTH_LONG).show();
                 } else if(code == LOGIN_FAILED) {
+                    loginButton.setEnabled(true);
                     Toast.makeText(getApplicationContext(), "Username e/o password errati", Toast.LENGTH_LONG).show();
                 } else {
+                    loginButton.setEnabled(true);
                     Toast.makeText(getApplicationContext(), "Errore sconosciuto, riprovare", Toast.LENGTH_LONG).show();
                 }
 
@@ -158,8 +154,7 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
 
         } else {
             loginButton.setEnabled(true);
-            Log.d(TAG, "Errore durante il login");
-            Toast.makeText(getApplicationContext(), "Errore durante il login", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "JSON vuoto", Toast.LENGTH_LONG).show();
         }
     }
 

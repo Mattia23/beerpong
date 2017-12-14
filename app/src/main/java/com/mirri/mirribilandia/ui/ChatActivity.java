@@ -1,20 +1,33 @@
 package com.mirri.mirribilandia.ui;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mirri.mirribilandia.R;
+import com.mirri.mirribilandia.item.PhotoContent;
 import com.mirri.mirribilandia.ui.chat.*;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class ChatActivity extends Activity {
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import static com.mirri.mirribilandia.util.Utilities.MY_PREFS_NAME;
+
+
+public class ChatActivity extends Activity implements UrlConnectionAsyncTask.UrlConnectionListener {
     private static final String TAG = "ChatActivity";
 
     private ChatArrayAdapter chatArrayAdapter;
@@ -66,9 +79,43 @@ public class ChatActivity extends Activity {
     }
 
     private boolean sendChatMessage() {
-        chatArrayAdapter.add(new ChatMessage(side, chatText.getText().toString()));
+        String msg = chatText.getText().toString();
+        chatArrayAdapter.add(new ChatMessage(side, msg));
+        /*
+        * Invio al database
+        * */
+        final Bundle data = new Bundle();
+        data.putString("username", "prova");
+        data.putString("attrazione", "1");
+        data.putString("messaggio", msg);
+        try {
+            new UrlConnectionAsyncTask(new URL(getString(R.string.add_new_msg_chat)), this, getApplicationContext()).execute(data);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         chatText.setText("");
         side = !side;
         return true;
+    }
+
+    @Override
+    public void handleResponse(JSONObject response, Bundle extra) {
+        if(response.length() != 0) {
+            Log.d(TAG, response.toString());
+            try {
+                final int code = response.getInt("code");
+
+                if(code == MSG_SENT) {
+                    Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Errore 1", Toast.LENGTH_SHORT).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Errore 2", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "Errore 3", Toast.LENGTH_SHORT).show();
+        }
     }
 }

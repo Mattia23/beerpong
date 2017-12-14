@@ -32,7 +32,6 @@ public class UtenteImpl implements Utente, Parcelable {
     private String password;
     private String nome;
     private String cognome;
-    private String pictureUrl;
 
     public UtenteImpl(final JSONObject jsonObject) throws JSONException {
         this.nome = jsonObject.getString(JSON_NOME);
