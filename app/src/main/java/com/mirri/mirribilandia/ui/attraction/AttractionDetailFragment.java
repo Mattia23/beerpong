@@ -66,9 +66,11 @@ public class AttractionDetailFragment extends BaseFragment {
             chatButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(attractionItem.idBeacon.equals(BEACON_ID)) {
-                        startActivity(new Intent(getActivity(), ChatActivity.class));
-                    }
+                    //if(attractionItem.idBeacon.equals(BEACON_ID)) {
+                        Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
+                        chatIntent.putExtra("ATTRAZIONE_ID", "1");
+                        startActivity(chatIntent);
+                    //}
                 }
             });
 

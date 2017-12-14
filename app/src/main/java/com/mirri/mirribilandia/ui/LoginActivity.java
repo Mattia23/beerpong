@@ -130,7 +130,6 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
                 if(code == LOGIN_SUCCESS) {
                     new PhotoContent(getApplicationContext(), username, password);
                     final Utente utente = new UtenteImpl(response.getJSONObject("extra").getJSONObject("utente"));
-                    Log.d("applicazione2", "Utente creato correttamente");
                     AccountManager.saveUser(utente, getApplicationContext());
                     SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                     editor.putString("username", username);

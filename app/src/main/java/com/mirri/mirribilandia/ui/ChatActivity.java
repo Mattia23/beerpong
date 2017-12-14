@@ -29,7 +29,7 @@ import static com.mirri.mirribilandia.util.Utilities.MY_PREFS_NAME;
 
 public class ChatActivity extends Activity implements UrlConnectionAsyncTask.UrlConnectionListener {
     private static final String TAG = "ChatActivity";
-
+    private String attraction_id;
     private ChatArrayAdapter chatArrayAdapter;
     private ListView listView;
     private EditText chatText;
@@ -39,9 +39,10 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_chat);
-
+        Intent intent = getIntent();
+        attraction_id = intent.getStringExtra("ATTRAZIONE_ID");
+        Toast.makeText(getApplicationContext(), attraction_id, Toast.LENGTH_SHORT).show();
         buttonSend = findViewById(R.id.send);
 
         listView = findViewById(R.id.msgview);
@@ -85,8 +86,9 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
         * Invio al database
         * */
         final Bundle data = new Bundle();
-        data.putString("username", "prova");
-        data.putString("attrazione", "1");
+        Utente utente = AccountManager.getLoggedUser(getApplicationContext());
+        data.putString("username", utente.getUsername());
+        data.putString("attrazione", attraction_id);
         data.putString("messaggio", msg);
         try {
             new UrlConnectionAsyncTask(new URL(getString(R.string.add_new_msg_chat)), this, getApplicationContext()).execute(data);
