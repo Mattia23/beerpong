@@ -1,5 +1,9 @@
 package com.mirri.mirribilandia.util;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -21,6 +25,8 @@ public final class Utilities {
 
 	public static String MY_PREFS_NAME = "user_pref";
 	public static String BEACON_ID = "";
+	public static boolean UPDATE_CONTENTS = true;
+	public static boolean UPDATE_PHOTO_CONTENT = true;
 
 	/**
 	 * Legge una stringa da uno stream di dati.
@@ -41,6 +47,17 @@ public final class Utilities {
 			}
 		}
 		return stringBuilder.toString();
+	}
+
+	public static boolean hasPermissions(Context context, String... permissions) {
+		if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+			for (String permission : permissions) {
+				if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 }

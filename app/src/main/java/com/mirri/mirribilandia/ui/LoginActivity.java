@@ -1,17 +1,13 @@
 package com.mirri.mirribilandia.ui;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,13 +25,11 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
-
-import javax.crypto.NoSuchPaddingException;
 
 import static com.mirri.mirribilandia.util.Utilities.MY_PREFS_NAME;
+import static com.mirri.mirribilandia.util.Utilities.UPDATE_CONTENTS;
+import static com.mirri.mirribilandia.util.Utilities.UPDATE_PHOTO_CONTENT;
+import static com.mirri.mirribilandia.util.Utilities.hasPermissions;
 
 public class LoginActivity extends AppCompatActivity implements UrlConnectionAsyncTask.UrlConnectionListener {
     private static final String TAG = "LoginActivity";
@@ -69,22 +63,19 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
             startActivityForResult(intent, REQUEST_SIGNUP);
         });
 
-        new AttractionContent(getApplicationContext());
-        new HotelContent(getApplicationContext());
-        new RestaurantContent(getApplicationContext());
-        new EventContent(getApplicationContext());
+        if(UPDATE_CONTENTS){
+            new AttractionContent(getApplicationContext());
+            new HotelContent(getApplicationContext());
+            new RestaurantContent(getApplicationContext());
+            new EventContent(getApplicationContext());
+            UPDATE_CONTENTS = false;
+        }
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 1);
-        }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        int PERMISSION_ALL = 1;
+        String[] PERMISSIONS = {Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+
+        if(!hasPermissions(this, PERMISSIONS)){
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
@@ -128,7 +119,10 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
             try {
                 final int code = response.getInt("code");
                 if(code == LOGIN_SUCCESS) {
-                    new PhotoContent(getApplicationContext(), username, password);
+                    if (UPDATE_PHOTO_CONTENT) {
+                        new PhotoContent(getApplicationContext(), username, password);
+                        UPDATE_PHOTO_CONTENT = false;
+                    }
                     final Utente utente = new UtenteImpl(response.getJSONObject("extra").getJSONObject("utente"));
                     AccountManager.saveUser(utente, getApplicationContext());
                     SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
