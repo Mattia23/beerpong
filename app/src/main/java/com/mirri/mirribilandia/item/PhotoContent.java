@@ -21,7 +21,7 @@ import java.util.Map;
 public class PhotoContent implements UrlConnectionAsyncTask.UrlConnectionListener{
     public static final List<PhotoContent.PhotoItem> ITEMS = new ArrayList<>();
     public static final Map<String, PhotoContent.PhotoItem> ITEM_MAP = new HashMap<>();
-    //TODO ogni volta che si riavvia l'app occorre cancellare le hash map e arraylist
+
     public PhotoContent(Context context, String username, String password){
         try {
             Bundle data = new Bundle();
