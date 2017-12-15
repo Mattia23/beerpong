@@ -68,7 +68,7 @@ public class AttractionDetailFragment extends BaseFragment {
                 public void onClick(View view) {
                     //if(attractionItem.idBeacon.equals(BEACON_ID)) {
                         Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
-                        chatIntent.putExtra("ATTRAZIONE_ID", "1");
+                        chatIntent.putExtra("ATTRAZIONE_ID", attractionItem.id);
                         startActivity(chatIntent);
                     //}
                 }

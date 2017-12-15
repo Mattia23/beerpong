@@ -32,6 +32,7 @@ public class UrlConnectionAsyncTask extends AsyncTask<Bundle, Void, JSONObject> 
         int LOGIN_SUCCESS = 0;
         int LOGIN_FAILED = -2;
         int MSG_SENT = 4;
+        int MSG_RECEIVE = 5;
         int GENERIC_ERROR = -4;
 
         /**

@@ -18,6 +18,7 @@ import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.item.PhotoContent;
 import com.mirri.mirribilandia.ui.chat.*;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,13 +29,17 @@ import static com.mirri.mirribilandia.util.Utilities.MY_PREFS_NAME;
 
 
 public class ChatActivity extends Activity implements UrlConnectionAsyncTask.UrlConnectionListener {
+
     private static final String TAG = "ChatActivity";
+    private static final boolean MY_SIDE = true;
+    private static final boolean OTHER_SIDE = false;
+
     private String attraction_id;
     private ChatArrayAdapter chatArrayAdapter;
     private ListView listView;
     private EditText chatText;
     private Button buttonSend;
-    private boolean side = false;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +47,6 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
         setContentView(R.layout.activity_chat);
         Intent intent = getIntent();
         attraction_id = intent.getStringExtra("ATTRAZIONE_ID");
-        Toast.makeText(getApplicationContext(), attraction_id, Toast.LENGTH_SHORT).show();
         buttonSend = findViewById(R.id.send);
 
         listView = findViewById(R.id.msgview);
@@ -77,11 +81,25 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
                 listView.setSelection(chatArrayAdapter.getCount() - 1);
             }
         });
+
+        checkMsgReceivedBeforeOpenChat();
+    }
+
+    private void checkMsgReceivedBeforeOpenChat() {
+        final Bundle data = new Bundle();
+        Utente utente = AccountManager.getLoggedUser(getApplicationContext());
+        data.putString("username", utente.getUsername());
+        data.putString("attrazione", attraction_id);
+        try {
+            new UrlConnectionAsyncTask(new URL(getString(R.string.receive_msg_chat)), this, getApplicationContext()).execute(data);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean sendChatMessage() {
         String msg = chatText.getText().toString();
-        chatArrayAdapter.add(new ChatMessage(side, msg));
+        chatArrayAdapter.add(new ChatMessage(MY_SIDE, msg));
         /*
         * Invio al database
         * */
@@ -90,13 +108,14 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
         data.putString("username", utente.getUsername());
         data.putString("attrazione", attraction_id);
         data.putString("messaggio", msg);
+        data.putString("orario", "");
         try {
             new UrlConnectionAsyncTask(new URL(getString(R.string.add_new_msg_chat)), this, getApplicationContext()).execute(data);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         chatText.setText("");
-        side = !side;
+        //side = !side;
         return true;
     }
 
@@ -109,15 +128,20 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
 
                 if(code == MSG_SENT) {
                     Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+                } else if (code == MSG_RECEIVE) {
+                    final JSONArray messages = response.getJSONObject("extra").getJSONArray("data");
+                    for(int i = 0; i < messages.length(); i++) {
+                        chatArrayAdapter.add(new ChatMessage(OTHER_SIDE, messages.getJSONObject(i).getString("messaggio")));
+                    }
                 } else {
-                    Toast.makeText(getApplicationContext(), "Errore 1", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Errore", Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Errore 2", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Errore", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(getApplicationContext(), "Errore 3", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Errore", Toast.LENGTH_SHORT).show();
         }
     }
 }
