@@ -18,6 +18,7 @@ import com.mirri.mirribilandia.item.AttractionContent;
 import com.mirri.mirribilandia.ui.ChatActivity;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 import com.mirri.mirribilandia.ui.base.BaseFragment;
+import com.mirri.mirribilandia.util.DownloadImageTask;
 
 import static com.mirri.mirribilandia.util.Utilities.BEACON_ID;
 
@@ -56,31 +57,24 @@ public class AttractionDetailFragment extends BaseFragment {
         }
 
         if (attractionItem != null) {
-            loadBackdrop();
+            new DownloadImageTask(image).execute(attractionItem.image);
             name.setTitle(attractionItem.name);
             description.setText(attractionItem.description);
             minAge.setText(attractionItem.minAge + " anni");
             minHeight.setText(attractionItem.minHeight + "cm");
             waitingTime.setText(attractionItem.waitingTime + " minuti");
             buildYear.setText(""+attractionItem.buildYear);
-            chatButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //if(attractionItem.idBeacon.equals(BEACON_ID)) {
-                        Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
-                        chatIntent.putExtra("ATTRAZIONE_ID", attractionItem.id);
-                        startActivity(chatIntent);
-                    //}
-                }
+            chatButton.setOnClickListener(view -> {
+                //if(attractionItem.idBeacon.equals(BEACON_ID)) {
+                    Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
+                    chatIntent.putExtra("ATTRAZIONE_ID", attractionItem.id);
+                    startActivity(chatIntent);
+                //}
             });
 
         }
 
         return rootView;
-    }
-
-    private void loadBackdrop() {
-        Glide.with(this).load(attractionItem.image).centerCrop().into(image);
     }
 
     public static AttractionDetailFragment newInstance(String itemID) {

@@ -17,6 +17,7 @@ import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.item.RestaurantContent;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 import com.mirri.mirribilandia.ui.base.BaseFragment;
+import com.mirri.mirribilandia.util.DownloadImageTask;
 
 import static com.mirri.mirribilandia.R.id.distance;
 
@@ -63,25 +64,18 @@ public class RestaurantDetailFragment extends BaseFragment {
         }
 
         if (restaurantItem != null) {
-            loadBackdrop();
+            new DownloadImageTask(image).execute(restaurantItem.image);
             name.setTitle(restaurantItem.name);
             description.setText(restaurantItem.description);
             //distance.setText(restaurantItem.distance);
-            phoneButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + restaurantItem.phone));
-                    startActivity(callIntent);
-                }
+            phoneButton.setOnClickListener(view -> {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + restaurantItem.phone));
+                startActivity(callIntent);
             });
         }
 
         return rootView;
-    }
-
-    private void loadBackdrop() {
-        Glide.with(this).load(restaurantItem.image).centerCrop().into(image);
     }
 
     public static RestaurantDetailFragment newInstance(String itemID) {

@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.item.HotelContent;
+import com.mirri.mirribilandia.util.DownloadImageTask;
 
 /**
  * Shows a list of all available quotes.

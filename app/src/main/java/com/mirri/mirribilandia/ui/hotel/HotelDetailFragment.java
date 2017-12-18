@@ -17,6 +17,7 @@ import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.item.HotelContent;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 import com.mirri.mirribilandia.ui.base.BaseFragment;
+import com.mirri.mirribilandia.util.DownloadImageTask;
 
 public class HotelDetailFragment extends BaseFragment {
 
@@ -52,25 +53,18 @@ public class HotelDetailFragment extends BaseFragment {
         }
 
         if (hotelItem != null) {
-            loadBackdrop();
+            new DownloadImageTask(image).execute(hotelItem.image);
             name.setTitle(hotelItem.name);
             description.setText(hotelItem.description);
             distance.setText(hotelItem.distance + "Km");
-            phoneButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + hotelItem.phone));
-                    startActivity(callIntent);
-                }
+            phoneButton.setOnClickListener(view -> {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + hotelItem.phone));
+                startActivity(callIntent);
             });
         }
 
         return rootView;
-    }
-
-    private void loadBackdrop() {
-        Glide.with(this).load(hotelItem.image).centerCrop().into(image);
     }
 
     public static HotelDetailFragment newInstance(String itemID) {
