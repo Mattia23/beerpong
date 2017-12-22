@@ -15,6 +15,8 @@ import java.util.List;
 public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
 
     private TextView chatText;
+    private TextView user;
+    private TextView orario;
     private List<ChatMessage> chatMessageList = new ArrayList<>();
     private Context context;
 
@@ -45,9 +47,13 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
             row = inflater.inflate(R.layout.chat_right, parent, false);
         }else{
             row = inflater.inflate(R.layout.chat_left, parent, false);
+            user = row.findViewById(R.id.username);
+            user.setText(chatMessageObj.id);
         }
         chatText = row.findViewById(R.id.msgr);
         chatText.setText(chatMessageObj.message);
+        orario = row.findViewById(R.id.orario);
+        orario.setText(chatMessageObj.orario);
         return row;
     }
 }

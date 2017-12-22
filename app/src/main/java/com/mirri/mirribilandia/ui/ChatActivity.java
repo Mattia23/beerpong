@@ -106,7 +106,6 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
     @Override
     protected void onPause() {
         activityShown = false;
-        Toast.makeText(getApplicationContext(), "Cambio flag", Toast.LENGTH_SHORT).show();
         super.onPause();
     }
 
@@ -157,7 +156,8 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
                     boolean side;
                     for(int i = 0; i < messages.length(); i++) {
                         side = messages.getJSONObject(i).getString("username").equals(utente.getUsername()) ? MY_SIDE : OTHER_SIDE;
-                        chatArrayAdapter.add(new ChatMessage(side, messages.getJSONObject(i).getString("messaggio")));
+                        JSONObject msg = messages.getJSONObject(i);
+                        chatArrayAdapter.add(new ChatMessage(side,msg.getString("messaggio"), msg.getString("username"), msg.getString("orario")));
                         if(i == (messages.length()-1)) {
                             lastMessageId = Integer.parseInt(messages.getJSONObject(i).getString("id"));
                         }
