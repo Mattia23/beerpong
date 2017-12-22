@@ -39,7 +39,9 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
     private ListView listView;
     private EditText chatText;
     private Button buttonSend;
-
+    private Utente utente;
+    private int lastMessageId;
+    private boolean activityShown;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,12 +50,13 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
         Intent intent = getIntent();
         attraction_id = intent.getStringExtra("ATTRAZIONE_ID");
         buttonSend = findViewById(R.id.send);
-
+        lastMessageId = 0;
         listView = findViewById(R.id.msgview);
+        activityShown = true;
 
         chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(), R.layout.chat_right);
         listView.setAdapter(chatArrayAdapter);
-
+        utente = AccountManager.getLoggedUser(getApplicationContext());
         chatText = findViewById(R.id.msg);
         chatText.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -82,14 +85,36 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
             }
         });
 
-        checkMsgReceivedBeforeOpenChat();
+        checkMsgReceived();
+
+        Thread check = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(activityShown) {
+                    try {
+                        Thread.sleep(3000);
+                        checkMsgReceived();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        check.start();
     }
 
-    private void checkMsgReceivedBeforeOpenChat() {
+    @Override
+    protected void onPause() {
+        activityShown = false;
+        Toast.makeText(getApplicationContext(), "Cambio flag", Toast.LENGTH_SHORT).show();
+        super.onPause();
+    }
+
+    private void checkMsgReceived() {
         final Bundle data = new Bundle();
-        Utente utente = AccountManager.getLoggedUser(getApplicationContext());
         data.putString("username", utente.getUsername());
         data.putString("attrazione", attraction_id);
+        data.putString("last_message", String.valueOf(lastMessageId));
         try {
             new UrlConnectionAsyncTask(new URL(getString(R.string.receive_msg_chat)), this, getApplicationContext()).execute(data);
         } catch (MalformedURLException e) {
@@ -99,12 +124,11 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
 
     private boolean sendChatMessage() {
         String msg = chatText.getText().toString();
-        chatArrayAdapter.add(new ChatMessage(MY_SIDE, msg));
+        //chatArrayAdapter.add(new ChatMessage(MY_SIDE, msg));
         /*
         * Invio al database
         * */
         final Bundle data = new Bundle();
-        Utente utente = AccountManager.getLoggedUser(getApplicationContext());
         data.putString("username", utente.getUsername());
         data.putString("attrazione", attraction_id);
         data.putString("messaggio", msg);
@@ -130,8 +154,13 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
                     Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
                 } else if (code == MSG_RECEIVE) {
                     final JSONArray messages = response.getJSONObject("extra").getJSONArray("data");
+                    boolean side;
                     for(int i = 0; i < messages.length(); i++) {
-                        chatArrayAdapter.add(new ChatMessage(OTHER_SIDE, messages.getJSONObject(i).getString("messaggio")));
+                        side = messages.getJSONObject(i).getString("username").equals(utente.getUsername()) ? MY_SIDE : OTHER_SIDE;
+                        chatArrayAdapter.add(new ChatMessage(side, messages.getJSONObject(i).getString("messaggio")));
+                        if(i == (messages.length()-1)) {
+                            lastMessageId = Integer.parseInt(messages.getJSONObject(i).getString("id"));
+                        }
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "Errore", Toast.LENGTH_SHORT).show();
