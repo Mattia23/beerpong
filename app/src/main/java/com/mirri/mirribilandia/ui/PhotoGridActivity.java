@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.item.PhotoContent;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
+import com.mirri.mirribilandia.util.DownloadImageTask;
 
 public class PhotoGridActivity extends BaseActivity {
 
@@ -24,14 +25,11 @@ public class PhotoGridActivity extends BaseActivity {
         setupToolbar();
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new PhotoListAdapter());
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent detailIntent = new Intent(PhotoGridActivity.this, PhotoDetailActivity.class);
-                detailIntent.putExtra(PhotoDetailActivity.PhotoDetailFragment.ARG_ITEM_ID,
-                        PhotoContent.ITEMS.get(position).id);
-                startActivity(detailIntent);
-            }
+        gridview.setOnItemClickListener((parent, view, position, id) -> {
+            Intent detailIntent = new Intent(PhotoGridActivity.this, PhotoDetailActivity.class);
+            detailIntent.putExtra(PhotoDetailActivity.PhotoDetailFragment.ARG_ITEM_ID,
+                    PhotoContent.ITEMS.get(position).id);
+            startActivity(detailIntent);
         });
     }
 
@@ -88,8 +86,7 @@ public class PhotoGridActivity extends BaseActivity {
             } else {
                 imageView = (ImageView) convertView;
             }
-
-            imageView.setImageResource(photoItem.image);
+            new DownloadImageTask(imageView).execute(photoItem.image);
             return imageView;
         }
 

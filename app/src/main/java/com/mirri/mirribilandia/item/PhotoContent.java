@@ -44,9 +44,9 @@ public class PhotoContent implements UrlConnectionAsyncTask.UrlConnectionListene
             try {
                 final int code = response.getInt("code");
                 if(code == 2) {
-                    final JSONArray attractions = response.getJSONObject("extra").getJSONArray("data");
-                    for(int i = 0; i < attractions.length(); i++) {
-                        addItem(new PhotoItem(attractions.getJSONObject(i).getString("id"), R.drawable.p1, attractions.getJSONObject(i).getString("utente"), attractions.getJSONObject(i).getString("attrazione"), attractions.getJSONObject(i).getString("data")));
+                    final JSONArray photo = response.getJSONObject("extra").getJSONArray("data");
+                    for(int i = 0; i < photo.length(); i++) {
+                        addItem(new PhotoItem(photo.getJSONObject(i).getString("id"), photo.getJSONObject(i).getString("immagine"), photo.getJSONObject(i).getString("utente"), photo.getJSONObject(i).getString("attrazione"), photo.getJSONObject(i).getString("data")));
                     }
                 } else {
                     //Toast.makeText(context, "Errore sconosciuto, riprovare", Toast.LENGTH_LONG).show();
@@ -59,12 +59,12 @@ public class PhotoContent implements UrlConnectionAsyncTask.UrlConnectionListene
 
     public static class PhotoItem {
         public final String id;
-        public final int image;
+        public final String image;
         public final String username;
         public final String attraction;
         public final String date;
 
-        PhotoItem(String id, int image, String username, String attraction, String date) {
+        PhotoItem(String id, String image, String username, String attraction, String date) {
             this.id = id;
             this.image = image;
             this.username = username;

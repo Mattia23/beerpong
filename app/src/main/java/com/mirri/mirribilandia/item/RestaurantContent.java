@@ -42,9 +42,9 @@ public class RestaurantContent implements UrlConnectionAsyncTask.UrlConnectionLi
             try {
                 final int code = response.getInt("code");
                 if(code == 2) {
-                    final JSONArray attractions = response.getJSONObject("extra").getJSONArray("data");
-                    for(int i = 0; i < attractions.length(); i++) {
-                        addItem(new RestaurantItem(attractions.getJSONObject(i).getString("id"), R.drawable.p1, attractions.getJSONObject(i).getString("nome"), attractions.getJSONObject(i).getString("descrizione"), attractions.getJSONObject(i).getString("tel")));
+                    final JSONArray restaurant = response.getJSONObject("extra").getJSONArray("data");
+                    for(int i = 0; i < restaurant.length(); i++) {
+                        addItem(new RestaurantItem(restaurant.getJSONObject(i).getString("id"), restaurant.getJSONObject(i).getString("immagine"), restaurant.getJSONObject(i).getString("nome"), restaurant.getJSONObject(i).getString("descrizione"), restaurant.getJSONObject(i).getString("tel")));
                     }
                 } else {
                     //Toast.makeText(context, "Errore sconosciuto, riprovare", Toast.LENGTH_LONG).show();
@@ -57,12 +57,12 @@ public class RestaurantContent implements UrlConnectionAsyncTask.UrlConnectionLi
 
     public static class RestaurantItem {
         public final String id;
-        public final int image;
+        public final String image;
         public final String name;
         public final String description;
         public final String phone;
 
-        RestaurantItem(String id, int image, String name, String description, String phone) {
+        RestaurantItem(String id, String image, String name, String description, String phone) {
             this.id = id;
             this.image = image;
             this.name = name;

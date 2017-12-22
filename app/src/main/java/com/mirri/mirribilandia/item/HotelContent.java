@@ -42,9 +42,9 @@ public class HotelContent implements UrlConnectionAsyncTask.UrlConnectionListene
             try {
                 final int code = response.getInt("code");
                 if(code == 2) {
-                    final JSONArray attractions = response.getJSONObject("extra").getJSONArray("data");
-                    for(int i = 0; i < attractions.length(); i++) {
-                        addItem(new HotelItem(attractions.getJSONObject(i).getString("id"), R.drawable.p1, attractions.getJSONObject(i).getString("nome"), attractions.getJSONObject(i).getString("descrizione"), attractions.getJSONObject(i).getString("tel"), attractions.getJSONObject(i).getInt("distanza")));
+                    final JSONArray hotel = response.getJSONObject("extra").getJSONArray("data");
+                    for(int i = 0; i < hotel.length(); i++) {
+                        addItem(new HotelItem(hotel.getJSONObject(i).getString("id"), hotel.getJSONObject(i).getString("immagine"), hotel.getJSONObject(i).getString("nome"), hotel.getJSONObject(i).getString("descrizione"), hotel.getJSONObject(i).getString("tel"), hotel.getJSONObject(i).getInt("distanza")));
                     }
                 } else {
                     //Toast.makeText(context, "Errore sconosciuto, riprovare", Toast.LENGTH_LONG).show();
@@ -57,13 +57,13 @@ public class HotelContent implements UrlConnectionAsyncTask.UrlConnectionListene
 
     public static class HotelItem {
         public final String id;
-        public final int image;
+        public final String image;
         public final String name;
         public final String description;
         public final String phone;
         public final int distance;
 
-        HotelItem(String id, int image, String name, String description, String phone, int distance) {
+        HotelItem(String id, String image, String name, String description, String phone, int distance) {
             this.id = id;
             this.image = image;
             this.name = name;

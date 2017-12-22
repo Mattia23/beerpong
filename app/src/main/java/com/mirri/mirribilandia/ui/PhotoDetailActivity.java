@@ -23,6 +23,7 @@ import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.item.PhotoContent;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 import com.mirri.mirribilandia.ui.base.BaseFragment;
+import com.mirri.mirribilandia.util.DownloadImageTask;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -87,33 +88,27 @@ public class PhotoDetailActivity extends BaseActivity{
             downloadImageButton = rootView.findViewById(R.id.floatingActionButton);
             CollapsingToolbarLayout name = rootView.findViewById(R.id.collapsing_toolbar);
             image = rootView.findViewById(R.id.backdrop);
+
             if (!((BaseActivity) getActivity()).providesActivityToolbar()) {
                 // No Toolbar present. Set include_toolbar:
                 ((BaseActivity) getActivity()).setToolbar((Toolbar) rootView.findViewById(R.id.toolbar));
             }
 
             if (photoItem != null) {
-                loadBackdrop();
+                new DownloadImageTask(image).execute(photoItem.image);
                 name.setTitle("Image" + photoItem.id + ".jpg");
                 attraction.setText(photoItem.attraction);
                 date.setText(photoItem.date);
-                downloadImageButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        try {
-                            saveFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                downloadImageButton.setOnClickListener(view -> {
+                    try {
+                        saveFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 });
             }
 
             return rootView;
-        }
-
-        private void loadBackdrop() {
-            Glide.with(this).load(photoItem.image).centerCrop().into(image);
         }
 
         public static PhotoDetailFragment newInstance(String itemID) {

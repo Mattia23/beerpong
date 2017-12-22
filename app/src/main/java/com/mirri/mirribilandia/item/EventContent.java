@@ -41,9 +41,9 @@ public class EventContent implements UrlConnectionAsyncTask.UrlConnectionListene
             try {
                 final int code = response.getInt("code");
                 if(code == 2) {
-                    final JSONArray attractions = response.getJSONObject("extra").getJSONArray("data");
-                    for(int i = 0; i < attractions.length(); i++) {
-                        addItem(new EventItem(attractions.getJSONObject(i).getString("id"), attractions.getJSONObject(i).getString("nome"), attractions.getJSONObject(i).getString("descrizione"), attractions.getJSONObject(i).getString("attrazione"), attractions.getJSONObject(i).getString("data")));
+                    final JSONArray event = response.getJSONObject("extra").getJSONArray("data");
+                    for(int i = 0; i < event.length(); i++) {
+                        addItem(new EventItem(event.getJSONObject(i).getString("id"), event.getJSONObject(i).getString("nome"), event.getJSONObject(i).getString("descrizione"), event.getJSONObject(i).getString("attrazione"), event.getJSONObject(i).getString("data")));
                     }
                 } else {
                     //Toast.makeText(context, "Errore sconosciuto, riprovare", Toast.LENGTH_LONG).show();

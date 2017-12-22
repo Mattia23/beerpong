@@ -42,9 +42,9 @@ public class AttractionContent implements UrlConnectionAsyncTask.UrlConnectionLi
             try {
                 final int code = response.getInt("code");
                 if(code == 2) {
-                    final JSONArray attractions = response.getJSONObject("extra").getJSONArray("data");
-                    for(int i = 0; i < attractions.length(); i++) {
-                        addItem(new AttractionItem(attractions.getJSONObject(i).getString("id"), R.drawable.p1, attractions.getJSONObject(i).getString("nome"), attractions.getJSONObject(i).getString("descrizione"), attractions.getJSONObject(i).getInt("eta_min"), attractions.getJSONObject(i).getInt("alt_min"), attractions.getJSONObject(i).getInt("tempo_attesa"), attractions.getJSONObject(i).getInt("anno_costruzione"), attractions.getJSONObject(i).getString("beacon")));
+                    final JSONArray attraction = response.getJSONObject("extra").getJSONArray("data");
+                    for(int i = 0; i < attraction.length(); i++) {
+                        addItem(new AttractionItem(attraction.getJSONObject(i).getString("id"), attraction.getJSONObject(i).getString("immagine"), attraction.getJSONObject(i).getString("nome"), attraction.getJSONObject(i).getString("descrizione"), attraction.getJSONObject(i).getInt("eta_min"), attraction.getJSONObject(i).getInt("alt_min"), attraction.getJSONObject(i).getInt("tempo_attesa"), attraction.getJSONObject(i).getInt("anno_costruzione"), attraction.getJSONObject(i).getString("beacon")));
                     }
                 } else {
                     //Toast.makeText(context, "Errore sconosciuto, riprovare", Toast.LENGTH_LONG).show();
@@ -57,7 +57,7 @@ public class AttractionContent implements UrlConnectionAsyncTask.UrlConnectionLi
 
     public static class AttractionItem {
         public final String id;
-        public final int image;
+        public final String image;
         public final String name;
         public final String description;
         public final int minAge;
@@ -66,7 +66,7 @@ public class AttractionContent implements UrlConnectionAsyncTask.UrlConnectionLi
         public final int buildYear;
         public final String idBeacon;
 
-        AttractionItem(String id, int image, String name, String description, int minAge, int minHeight, int waitingTime, int buildYear, String idBeacon) {
+        AttractionItem(String id, String image, String name, String description, int minAge, int minHeight, int waitingTime, int buildYear, String idBeacon) {
             this.id = id;
             this.image = image;
             this.name = name;
