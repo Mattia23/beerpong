@@ -58,20 +58,13 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
         listView.setAdapter(chatArrayAdapter);
         utente = AccountManager.getLoggedUser(getApplicationContext());
         chatText = findViewById(R.id.msg);
-        chatText.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    return sendChatMessage();
-                }
-                return false;
+        chatText.setOnKeyListener((v, keyCode, event) -> {
+            if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                return sendChatMessage();
             }
+            return false;
         });
-        buttonSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                sendChatMessage();
-            }
-        });
+        buttonSend.setOnClickListener(arg0 -> sendChatMessage());
 
         listView.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
         listView.setAdapter(chatArrayAdapter);
@@ -87,16 +80,13 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
 
         checkMsgReceived();
 
-        Thread check = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(activityShown) {
-                    try {
-                        Thread.sleep(3000);
-                        checkMsgReceived();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+        Thread check = new Thread(() -> {
+            while(activityShown) {
+                try {
+                    Thread.sleep(3000);
+                    checkMsgReceived();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -123,6 +113,7 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
 
     private boolean sendChatMessage() {
         String msg = chatText.getText().toString();
+        msg = msg.replace("'", "''");
         //chatArrayAdapter.add(new ChatMessage(MY_SIDE, msg));
         /*
         * Invio al database

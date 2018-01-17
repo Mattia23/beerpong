@@ -45,13 +45,34 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
         LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (chatMessageObj.left) {
             row = inflater.inflate(R.layout.chat_right, parent, false);
+            chatText = row.findViewById(R.id.msgr);
+            if(chatMessageObj.message.length() <= 5){
+                String newChatMessage = chatMessageObj.message;
+                for(int num = chatMessageObj.message.length(); num <= 5; num++){
+                    newChatMessage = " " + newChatMessage;
+                }
+                chatText.setText(newChatMessage);
+            }else{
+                chatText.setText(chatMessageObj.message);
+            }
         }else{
             row = inflater.inflate(R.layout.chat_left, parent, false);
+            chatText = row.findViewById(R.id.msgr);
+            if(chatMessageObj.message.length() <= 15){
+                String newChatMessage = chatMessageObj.message;
+                for(int num = chatMessageObj.message.length(); num <= 15; num++){
+                    newChatMessage = newChatMessage.concat(" ");
+                }
+                chatText.setText(newChatMessage);
+            }else{
+                chatText.setText(chatMessageObj.message);
+            }
+
             user = row.findViewById(R.id.username);
             user.setText(chatMessageObj.id);
         }
-        chatText = row.findViewById(R.id.msgr);
-        chatText.setText(chatMessageObj.message);
+
+
         orario = row.findViewById(R.id.orario);
         orario.setText(chatMessageObj.orario);
         return row;
