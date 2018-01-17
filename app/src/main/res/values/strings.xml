@@ -15,6 +15,7 @@
     <string name="attraction_url">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/mirribilandia/getAttrazioni.php</string>
     <string name="hotel_url">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/mirribilandia/getHotel.php</string>
     <string name="restaurant_url">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/mirribilandia/getRistoranti.php</string>
+    <string name="restaurant_url_by_attraction">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/mirribilandia/getRistorantibyAttraction.php</string>
     <string name="event_url">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/mirribilandia/getEvents.php</string>
     <string name="photo_url">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/mirribilandia/getFoto.php</string>
     <string name="add_new_user">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/mirribilandia/add_user.php</string>

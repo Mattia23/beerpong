@@ -37,7 +37,7 @@
         <activity android:name=".ui.PhotoDetailActivity" android:parentActivityName=".ui.AttractionActivity"/>
         <activity android:name=".ui.ChatActivity" android:label="Chat" android:theme="@style/Base.Theme"/>
 
-        <service   android:enabled="true" android:name=".beacon.BeaconService"/>
+        <!--service   android:enabled="true" android:name=".beacon.BeaconService"/-->
 
     </application>
 

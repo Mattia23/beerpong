@@ -31,6 +31,19 @@ public class RestaurantContent implements UrlConnectionAsyncTask.UrlConnectionLi
         }
     }
 
+    public RestaurantContent(Context context, String attractionId) {
+        ITEMS.clear();
+        ITEM_MAP.clear();
+        try {
+            Bundle data = new Bundle();
+            data.putString("attrazione", attractionId);
+            new UrlConnectionAsyncTask(new URL(context.getString(R.string.restaurant_url_by_attraction)), this, context).execute(data);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private static void addItem(RestaurantContent.RestaurantItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
@@ -44,7 +57,7 @@ public class RestaurantContent implements UrlConnectionAsyncTask.UrlConnectionLi
                 if(code == 2) {
                     final JSONArray restaurant = response.getJSONObject("extra").getJSONArray("data");
                     for(int i = 0; i < restaurant.length(); i++) {
-                        addItem(new RestaurantItem(restaurant.getJSONObject(i).getString("id"), restaurant.getJSONObject(i).getString("immagine"), restaurant.getJSONObject(i).getString("nome"), restaurant.getJSONObject(i).getString("descrizione"), restaurant.getJSONObject(i).getString("tel")));
+                        addItem(new RestaurantItem(restaurant.getJSONObject(i).getString("id"), restaurant.getJSONObject(i).getString("immagine"), restaurant.getJSONObject(i).getString("nome"), restaurant.getJSONObject(i).getString("descrizione"), restaurant.getJSONObject(i).getString("tel"), restaurant.getJSONObject(i).getInt("distanza")));
                     }
                 } else {
                     //Toast.makeText(context, "Errore sconosciuto, riprovare", Toast.LENGTH_LONG).show();
@@ -61,13 +74,15 @@ public class RestaurantContent implements UrlConnectionAsyncTask.UrlConnectionLi
         public final String name;
         public final String description;
         public final String phone;
+        public final int distance;
 
-        RestaurantItem(String id, String image, String name, String description, String phone) {
+        RestaurantItem(String id, String image, String name, String description, String phone, int distance) {
             this.id = id;
             this.image = image;
             this.name = name;
             this.description = description;
             this.phone = phone;
+            this.distance = distance;
         }
     }
 }

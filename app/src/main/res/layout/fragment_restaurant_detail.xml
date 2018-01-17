@@ -96,7 +96,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView
-                        android:id="@+id/description"
+                        android:id="@+id/distance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="non collegato"

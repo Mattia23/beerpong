@@ -20,6 +20,7 @@ import com.mirri.mirribilandia.ui.PhotoGridActivity;
 
 import static com.mirri.mirribilandia.util.LogUtil.logD;
 import static com.mirri.mirribilandia.util.LogUtil.makeLogTag;
+import static com.mirri.mirribilandia.util.Utilities.SEARCH_BEACON;
 
 /**
  * The base class for all Activity classes.
@@ -182,4 +183,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+    @Override
+    public void onBackPressed() {
+        SEARCH_BEACON = false;
+        super.onBackPressed();
+    }
+
 }

@@ -1,27 +1,24 @@
 package com.mirri.mirribilandia.ui;
 
-import android.Manifest;
 import android.app.ActivityManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.mirri.mirribilandia.R;
-import com.mirri.mirribilandia.beacon.BeaconService;
+import com.mirri.mirribilandia.beacon.MyBeaconService;
 import com.mirri.mirribilandia.item.AttractionContent;
-import com.mirri.mirribilandia.item.PhotoContent;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 import com.mirri.mirribilandia.ui.attraction.AttractionDetailActivity;
 import com.mirri.mirribilandia.ui.attraction.AttractionDetailFragment;
 import com.mirri.mirribilandia.ui.attraction.AttractionListFragment;
 import com.mirri.mirribilandia.util.LogUtil;
+
+import static com.mirri.mirribilandia.util.Utilities.SEARCH_BEACON;
 
 public class AttractionActivity extends BaseActivity implements AttractionListFragment.Callback {
     /**
@@ -46,9 +43,15 @@ public class AttractionActivity extends BaseActivity implements AttractionListFr
             setupDetailFragment();
         }
 
-        if(!isMyServiceRunning(BeaconService.class)){
-            startService(new Intent(this, BeaconService.class));
+
+        if(!SEARCH_BEACON) {
+            SEARCH_BEACON = true;
+            new MyBeaconService(this);
         }
+
+        /*if(!isMyServiceRunning(BeaconService.class)){
+            startService(new Intent(this, BeaconService.class));
+        }*/
 
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (!mBluetoothAdapter.isEnabled()) {

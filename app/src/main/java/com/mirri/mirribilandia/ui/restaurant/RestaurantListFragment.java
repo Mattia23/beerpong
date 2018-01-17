@@ -118,7 +118,11 @@ public class RestaurantListFragment extends ListFragment {
 
             final RestaurantContent.RestaurantItem restaurantItem = (RestaurantContent.RestaurantItem) getItem(position);
             ((TextView) convertView.findViewById(R.id.article_title)).setText(restaurantItem.name);
-            ((TextView) convertView.findViewById(R.id.article_subtitle)).setText("Distanza dall'attrazione attuale: (nessun collegamento)");
+            if(restaurantItem.distance != -1) {
+                ((TextView) convertView.findViewById(R.id.article_subtitle)).setText("Distanza dall'attrazione attuale: " + restaurantItem.distance + " metri");
+            } else {
+                ((TextView) convertView.findViewById(R.id.article_subtitle)).setText("Distanza dall'attrazione attuale: (nessun collegamento)");
+            }
             final ImageView img = convertView.findViewById(R.id.thumbnail);
             Glide.with(getActivity()).load(restaurantItem.image).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
                 @Override

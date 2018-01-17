@@ -1,6 +1,7 @@
 package com.mirri.mirribilandia.ui;
 
 import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -26,7 +27,9 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static com.mirri.mirribilandia.util.Utilities.BEACON_ID;
 import static com.mirri.mirribilandia.util.Utilities.MY_PREFS_NAME;
+import static com.mirri.mirribilandia.util.Utilities.SEARCH_BEACON;
 import static com.mirri.mirribilandia.util.Utilities.UPDATE_CONTENTS;
 import static com.mirri.mirribilandia.util.Utilities.UPDATE_PHOTO_CONTENT;
 import static com.mirri.mirribilandia.util.Utilities.hasPermissions;
@@ -50,7 +53,6 @@ public class LoginActivity extends AppCompatActivity implements UrlConnectionAsy
         passwordText = (EditText) findViewById(R.id.input_password);
         loginButton = (Button) findViewById(R.id.btn_login);
         signupLink = (TextView) findViewById(R.id.link_signup);
-
 
         loginButton.setOnClickListener(v -> {
             login();

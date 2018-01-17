@@ -23,8 +23,9 @@ public final class Utilities {
 	private Utilities() { }
 
 
-	public static String MY_PREFS_NAME = "user_pref";
+	public static final String MY_PREFS_NAME = "user_pref";
 	public static String BEACON_ID = "";
+	public static boolean SEARCH_BEACON = false;
 	public static boolean UPDATE_CONTENTS = true;
 	public static boolean UPDATE_PHOTO_CONTENT = true;
 

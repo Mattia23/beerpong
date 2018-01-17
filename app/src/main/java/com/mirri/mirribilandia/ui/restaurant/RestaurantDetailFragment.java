@@ -55,6 +55,9 @@ public class RestaurantDetailFragment extends BaseFragment {
         View rootView = inflateAndBind(inflater, container, R.layout.fragment_restaurant_detail);
         TextView description = rootView.findViewById(R.id.description);
         TextView distance = rootView.findViewById(R.id.distance);
+        if(restaurantItem.distance != -1) {
+            distance.setText(restaurantItem.distance + " metri");
+        }
         image = rootView.findViewById(R.id.backdrop);
         FloatingActionButton phoneButton = rootView.findViewById(R.id.floatingActionButton);
         CollapsingToolbarLayout name = rootView.findViewById(R.id.collapsing_toolbar);
