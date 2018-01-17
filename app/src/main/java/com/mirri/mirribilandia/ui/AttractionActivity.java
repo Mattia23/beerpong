@@ -2,6 +2,7 @@ package com.mirri.mirribilandia.ui;
 
 import android.Manifest;
 import android.app.ActivityManager;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -47,6 +48,12 @@ public class AttractionActivity extends BaseActivity implements AttractionListFr
 
         if(!isMyServiceRunning(BeaconService.class)){
             startService(new Intent(this, BeaconService.class));
+        }
+
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (!mBluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, 1);
         }
     }
 

@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static com.mirri.mirribilandia.util.Utilities.BEACON_ID;
 import static com.mirri.mirribilandia.util.Utilities.MY_PREFS_NAME;
 
 
@@ -34,7 +35,7 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
     private static final boolean MY_SIDE = true;
     private static final boolean OTHER_SIDE = false;
 
-    private String attraction_id;
+    private String beacon_id;
     private ChatArrayAdapter chatArrayAdapter;
     private ListView listView;
     private EditText chatText;
@@ -47,8 +48,7 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        Intent intent = getIntent();
-        attraction_id = intent.getStringExtra("ATTRAZIONE_ID");
+        beacon_id = BEACON_ID;
         buttonSend = findViewById(R.id.send);
         lastMessageId = 0;
         listView = findViewById(R.id.msgview);
@@ -102,7 +102,7 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
     private void checkMsgReceived() {
         final Bundle data = new Bundle();
         data.putString("username", utente.getUsername());
-        data.putString("attrazione", attraction_id);
+        data.putString("attrazione", beacon_id);
         data.putString("last_message", String.valueOf(lastMessageId));
         try {
             new UrlConnectionAsyncTask(new URL(getString(R.string.receive_msg_chat)), this, getApplicationContext()).execute(data);
@@ -120,7 +120,7 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
         * */
         final Bundle data = new Bundle();
         data.putString("username", utente.getUsername());
-        data.putString("attrazione", attraction_id);
+        data.putString("attrazione", beacon_id);
         data.putString("messaggio", msg);
         data.putString("orario", "");
         try {
@@ -141,7 +141,7 @@ public class ChatActivity extends Activity implements UrlConnectionAsyncTask.Url
                 final int code = response.getInt("code");
 
                 if(code == MSG_SENT) {
-                    Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
                 } else if (code == MSG_RECEIVE) {
                     final JSONArray messages = response.getJSONObject("extra").getJSONArray("data");
                     boolean side;

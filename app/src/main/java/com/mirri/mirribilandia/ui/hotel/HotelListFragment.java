@@ -119,7 +119,7 @@ public class HotelListFragment extends ListFragment {
 
             final HotelContent.HotelItem hotelItem = (HotelContent.HotelItem)  getItem(position);
             ((TextView) convertView.findViewById(R.id.article_title)).setText(hotelItem.name);
-            ((TextView) convertView.findViewById(R.id.article_subtitle)).setText("Distanza dal parco divertimenti: " + hotelItem.distance);
+            ((TextView) convertView.findViewById(R.id.article_subtitle)).setText("Distanza dal parco divertimenti: " + hotelItem.distance + "Km");
             final ImageView img = convertView.findViewById(R.id.thumbnail);
             Glide.with(getActivity()).load(hotelItem.image).asBitmap().fitCenter().into(new BitmapImageViewTarget(img) {
                 @Override

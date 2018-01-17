@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -65,11 +66,11 @@ public class AttractionDetailFragment extends BaseFragment {
             waitingTime.setText(attractionItem.waitingTime + " minuti");
             buildYear.setText(""+attractionItem.buildYear);
             chatButton.setOnClickListener(view -> {
-                //if(attractionItem.idBeacon.equals(BEACON_ID)) {
-                    Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
-                    chatIntent.putExtra("ATTRAZIONE_ID", attractionItem.id);
-                    startActivity(chatIntent);
-                //}
+                if(attractionItem.idBeacon.equals(BEACON_ID)) {
+                    startActivity(new Intent(getActivity(), ChatActivity.class));
+                }else{
+                    Toast.makeText(getActivity(), "Avvicinati all'attrazione per entrare nella chat", Toast.LENGTH_LONG).show();
+                }
             });
 
         }

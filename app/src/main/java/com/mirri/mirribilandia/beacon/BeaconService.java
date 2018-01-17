@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.estimote.sdk.SystemRequirementsChecker;
 import com.estimote.sdk.connection.scanner.ConfigurableDevicesScanner;
 import com.mirri.mirribilandia.R;
+import com.mirri.mirribilandia.item.AttractionContent;
 import com.mirri.mirribilandia.ui.AttractionActivity;
 import com.mirri.mirribilandia.ui.ChatActivity;
 import com.mirri.mirribilandia.ui.RestaurantActivity;
@@ -35,7 +36,7 @@ public class BeaconService extends Service {
     private Notification.Builder builder;
     private NotificationManager mNotificationManager;
     private NotificationChannel mChannel;
-    private int notifyID = (int) System.currentTimeMillis();//new Random().nextInt(Integer.MAX_VALUE);
+    private int notifyID = (int) System.currentTimeMillis();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -51,7 +52,6 @@ public class BeaconService extends Service {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if(Objects.equals(intent.getAction(), "chat")) {
-                    //TODO Nella chat activity devo controllare il beacon id in qualche modo
                     startActivity(new Intent(getApplicationContext(), ChatActivity.class));
                 }else if(Objects.equals(intent.getAction(), "rest")){
                     startActivity(new Intent(getApplicationContext(), RestaurantActivity.class));
@@ -97,39 +97,38 @@ public class BeaconService extends Service {
 
         Toast.makeText(this, "Service created!", Toast.LENGTH_SHORT).show();
 
-        //TODO quando si collega fai
-        /*builder.setContentTitle("nome attrazione");
-        builder.setContentText("tempo attesa");
-
-        //e poi
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            mNotificationManager.createNotificationChannel(mChannel);
-            mNotificationManager.notify(notifyID, builder.build());
-        } else {
-            mNotificationManager.notify(notifyID, builder.build());
-        }*/
-
-
 
         handler = new Handler();
-        runnable = new Runnable() {
-            public void run() {
-                devicesScanner.scanForDevices(new ConfigurableDevicesScanner.ScannerCallback() {
-                    @Override
-                    public void onDevicesFound(List<ConfigurableDevicesScanner.ScanResultItem> list) {
-                        if (!list.isEmpty()) {
-                            ConfigurableDevicesScanner.ScanResultItem item = list.get(0);
-                            if (item.rssi > RSSI_THRESHOLD) {
-                                devicesScanner.stopScanning();
-                                BEACON_ID = item.device.deviceId.toString();
-                                Toast.makeText(context, item.device.deviceId.toString(), Toast.LENGTH_SHORT).show();
-
+        runnable = () -> {
+            devicesScanner.scanForDevices(list -> {
+                if (!list.isEmpty()) {
+                    ConfigurableDevicesScanner.ScanResultItem item = list.get(0);
+                    if (item.rssi > RSSI_THRESHOLD) {
+                        devicesScanner.stopScanning();
+                        if(!item.device.deviceId.toString().equals(BEACON_ID)){
+                            BEACON_ID = item.device.deviceId.toString();
+                            List<AttractionContent.AttractionItem> attractionItems = AttractionContent.ITEMS;
+                            for(AttractionContent.AttractionItem attractionItem: attractionItems){
+                                if(attractionItem.idBeacon.equals(BEACON_ID)){
+                                    builder.setContentTitle("Attrazione vicina: " + attractionItem.name);
+                                    builder.setContentText("Tempo di attesa: "+attractionItem.waitingTime+" min");
+                                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                        mNotificationManager.createNotificationChannel(mChannel);
+                                        mNotificationManager.notify(notifyID, builder.build());
+                                    } else {
+                                        mNotificationManager.notify(notifyID, builder.build());
+                                    }
+                                }
                             }
+
+                            Toast.makeText(context, item.device.deviceId.toString(), Toast.LENGTH_SHORT).show();
+                            System.out.println("DEVICE "+item.device.deviceId.toString());
                         }
+
                     }
-                });
-                handler.postDelayed(runnable, 20000);
-            }
+                }
+            });
+            handler.postDelayed(runnable, 20000);
         };
 
         handler.postDelayed(runnable, 3000);
