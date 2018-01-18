@@ -9,8 +9,6 @@
     <string name="samples_hint_username">Username</string>
     <string name="samples_hint_email">E-Mail</string>
 
-    <string name="section_format">Hello World from section: %1$d</string>
-
     <string name="login_url">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/mirribilandia/login.php</string>
     <string name="attraction_url">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/mirribilandia/getAttrazioni.php</string>
     <string name="hotel_url">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/mirribilandia/getHotel.php</string>

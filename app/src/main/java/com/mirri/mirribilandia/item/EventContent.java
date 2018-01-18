@@ -12,9 +12,14 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -24,7 +29,7 @@ public class EventContent implements UrlConnectionAsyncTask.UrlConnectionListene
 
     public EventContent(Context context){
         try {
-            new UrlConnectionAsyncTask(new URL(context.getString(R.string.photo_url)), this, context).execute(new Bundle());
+            new UrlConnectionAsyncTask(new URL(context.getString(R.string.event_url)), this, context).execute(new Bundle());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -42,8 +47,12 @@ public class EventContent implements UrlConnectionAsyncTask.UrlConnectionListene
                 final int code = response.getInt("code");
                 if(code == 2) {
                     final JSONArray event = response.getJSONObject("extra").getJSONArray("data");
+                    String dateString = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date());
                     for(int i = 0; i < event.length(); i++) {
-                        addItem(new EventItem(event.getJSONObject(i).getString("id"), event.getJSONObject(i).getString("nome"), event.getJSONObject(i).getString("descrizione"), event.getJSONObject(i).getString("attrazione"), event.getJSONObject(i).getString("data")));
+                        System.out.println(event.getJSONObject(i).getString("data").substring(0,10));
+                        if(dateString.equals(event.getJSONObject(i).getString("data").substring(0,10))) {
+                            addItem(new EventItem(event.getJSONObject(i).getString("id"), event.getJSONObject(i).getString("nome"), event.getJSONObject(i).getString("descrizione"), event.getJSONObject(i).getString("attrazione"), event.getJSONObject(i).getString("data")));
+                        }
                     }
                 } else {
                     //Toast.makeText(context, "Errore sconosciuto, riprovare", Toast.LENGTH_LONG).show();

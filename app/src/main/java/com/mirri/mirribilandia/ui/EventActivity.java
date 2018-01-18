@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mirri.mirribilandia.R;
+import com.mirri.mirribilandia.item.AttractionContent;
 import com.mirri.mirribilandia.item.EventContent;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 
@@ -75,7 +76,22 @@ public class EventActivity extends BaseActivity {
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
+        private EventContent.EventItem eventItem;
+
         public PlaceholderFragment() {
+
+        }
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            if (getArguments().containsKey(ARG_SECTION_NUMBER)) {
+                // load dummy item by using the passed item ID.
+                eventItem = EventContent.ITEMS.get(getArguments().getInt(ARG_SECTION_NUMBER)-1);
+            }
+
+            setHasOptionsMenu(true);
         }
 
         /**
@@ -94,8 +110,19 @@ public class EventActivity extends BaseActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_events_activity, container, false);
-            TextView textView = rootView.findViewById(R.id.description);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            TextView description = rootView.findViewById(R.id.description);
+            TextView attraction = rootView.findViewById(R.id.attraction);
+            TextView time = rootView.findViewById(R.id.time);
+            if(eventItem != null){
+                description.setText(eventItem.description);
+                for(AttractionContent.AttractionItem attractionItem: AttractionContent.ITEMS){
+                    if(attractionItem.id.equals(eventItem.attraction)){
+                        attraction.setText(attractionItem.name);
+                    }
+                }
+                time.setText(eventItem.date.substring(11,16));
+            }
+
             return rootView;
         }
     }

@@ -127,7 +127,7 @@ public class AttractionActivity extends BaseActivity implements AttractionListFr
         return true;
     }
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
+    /*private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
@@ -135,5 +135,5 @@ public class AttractionActivity extends BaseActivity implements AttractionListFr
             }
         }
         return false;
-    }
+    }*/
 }
