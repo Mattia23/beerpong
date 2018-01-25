@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe con metodi statici di utilità
+ * Classe con metodi statici di utilità.
  */
 public final class Utilities {
 
