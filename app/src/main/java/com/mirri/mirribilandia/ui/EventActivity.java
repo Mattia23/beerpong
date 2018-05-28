@@ -58,7 +58,7 @@ public class EventActivity extends BaseActivity {
 
     @Override
     protected int getSelfNavDrawerItem() {
-        return R.id.nav_events;
+        return R.id.nav_eliminatoria;
     }
 
     @Override

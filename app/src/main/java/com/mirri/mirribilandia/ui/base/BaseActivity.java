@@ -13,14 +13,11 @@ import android.view.MenuItem;
 import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.ui.AttractionActivity;
 import com.mirri.mirribilandia.ui.EventActivity;
-import com.mirri.mirribilandia.ui.HotelActivity;
-import com.mirri.mirribilandia.ui.MapActivity;
-import com.mirri.mirribilandia.ui.RestaurantActivity;
-import com.mirri.mirribilandia.ui.PhotoGridActivity;
+import com.mirri.mirribilandia.ui.GironiActivity;
+import com.mirri.mirribilandia.ui.SquadreActivity;
 
 import static com.mirri.mirribilandia.util.LogUtil.logD;
 import static com.mirri.mirribilandia.util.LogUtil.makeLogTag;
-import static com.mirri.mirribilandia.util.Utilities.SEARCH_BEACON;
 
 /**
  * The base class for all Activity classes.
@@ -107,33 +104,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void goToNavDrawerItem(int item) {
         final Intent intent;
         switch (item) {
-            case R.id.nav_map:
-                intent = new Intent(this, MapActivity.class);
+            case R.id.nav_gironi:
+                intent = new Intent(this, GironiActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.nav_attraction:
+            case R.id.nav_eliminatoria:
                 intent = new Intent(this, AttractionActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.nav_events:
-                intent = new Intent(this, EventActivity.class);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.nav_restaurant:
-                intent = new Intent(this, RestaurantActivity.class);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.nav_hotels:
-                intent = new Intent(this, HotelActivity.class);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.nav_photos:
-                intent = new Intent(this, PhotoGridActivity.class);
+            case R.id.nav_squadre:
+                intent = new Intent(this, SquadreActivity.class);
                 startActivity(intent);
                 finish();
                 break;
@@ -186,7 +168,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        SEARCH_BEACON = false;
         super.onBackPressed();
     }
 

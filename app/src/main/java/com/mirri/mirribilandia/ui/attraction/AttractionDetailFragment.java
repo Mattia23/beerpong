@@ -12,11 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-
 import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.item.AttractionContent;
-import com.mirri.mirribilandia.ui.ChatActivity;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 import com.mirri.mirribilandia.ui.base.BaseFragment;
 import com.mirri.mirribilandia.util.DownloadImageTask;
@@ -65,13 +62,6 @@ public class AttractionDetailFragment extends BaseFragment {
             minHeight.setText(attractionItem.minHeight + "cm");
             waitingTime.setText(attractionItem.waitingTime + " minuti");
             buildYear.setText(""+attractionItem.buildYear);
-            chatButton.setOnClickListener(view -> {
-                if(attractionItem.idBeacon.equals(BEACON_ID)) {
-                    startActivity(new Intent(getActivity(), ChatActivity.class));
-                }else{
-                    Toast.makeText(getActivity(), "Avvicinati all'attrazione per entrare nella chat", Toast.LENGTH_LONG).show();
-                }
-            });
 
         }
 

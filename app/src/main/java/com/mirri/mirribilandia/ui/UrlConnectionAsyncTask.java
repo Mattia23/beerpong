@@ -84,7 +84,6 @@ public class UrlConnectionAsyncTask extends AsyncTask<Bundle, Void, JSONObject> 
                 inputStream.close();
                 urlConnection.disconnect();
 
-                AccountManager.setError(false);
                 return responseJson;
             } else {
                 Log.d("applicazione", urlConnection.getResponseMessage());
@@ -93,7 +92,6 @@ public class UrlConnectionAsyncTask extends AsyncTask<Bundle, Void, JSONObject> 
             e.printStackTrace();
         }
 
-        AccountManager.setError(true);
         return null;
     }
 

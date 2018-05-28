@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mirribilandia</string>
+    <string name="app_name">Beerpong Frampula</string>
 
     <string name="lorem_ipsum">Sugar plum sugar plum gummies donut jelly powder. Icing muffin cheesecake liquorice wafer bonbon. Bonbon tootsie roll halvah. Lollipop macaroon bear claw chocolate cake. Chocolate bar gummi bears candy cheesecake icing oat cake. Cake chocolate cake liquorice pie. Donut halvah lollipop. Bear claw lollipop sweet roll cookie dragée dragée donut candy. Cheesecake liquorice marzipan dragée muffin chocolate dessert jujubes. Cupcake ice cream tootsie roll bonbon croissant gingerbread ice cream danish. Jelly beans donut jujubes sugar plum. Tootsie roll tiramisu chupa chups dragée cheesecake brownie chocolate bar chocolate bar icing. Apple pie cake carrot cake gingerbread candy canes</string>
     <string name="article_detail_more_info">More Info</string>
@@ -19,5 +19,10 @@
     <string name="add_new_user">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/mirribilandia/add_user.php</string>
     <string name="add_new_msg_chat">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/mirribilandia/add_message.php</string>
     <string name="receive_msg_chat">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/mirribilandia/receive_messages.php</string>
+
+    <string name="gironi_url">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/beerpong/getPartite.php</string>
+    <string name="eliminatoria_url">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/beerpong/getTabellone.php</string>
+    <string name="squadre_url">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/beerpong/getSquadre.php</string>
+
 
 </resources>

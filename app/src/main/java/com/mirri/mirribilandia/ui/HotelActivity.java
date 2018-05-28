@@ -97,7 +97,7 @@ public class HotelActivity extends BaseActivity implements HotelListFragment.Cal
 
     @Override
     protected int getSelfNavDrawerItem() {
-        return R.id.nav_hotels;
+        return R.id.nav_squadre;
     }
 
     @Override

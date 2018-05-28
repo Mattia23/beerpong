@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                style="@style/SizeSpecificCollapsingToolbarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:visibility="visible"
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/squadra1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="19dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="E poi ha iniziato a piovere"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/squadra2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/squadra1"
+                android:layout_below="@+id/squadra1"
+                android:layout_marginTop="0dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Vodkacrodino"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/squadra3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/squadra2"
+                android:layout_below="@+id/squadra2"
+                android:layout_marginTop="22dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Fotogrammi"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/squadra4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/squadra3"
+                android:layout_below="@+id/squadra3"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Barricata 903"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/squadra5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/squadra4"
+                android:layout_below="@+id/squadra4"
+                android:layout_marginTop="22dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="E poi ha iniziato a piovere"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/squadra6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/squadra5"
+                android:layout_below="@+id/squadra5"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Barricata 903"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/squadra7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/squadra4"
+                android:layout_below="@+id/squadra6"
+                android:layout_marginTop="22dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Fotogrammi"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/squadra8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/squadra7"
+                android:layout_below="@+id/squadra7"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Vodkacrodino"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/squadra9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/squadra8"
+                android:layout_below="@+id/squadra8"
+                android:layout_marginTop="22dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="E poi ha iniziato a piovere"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/squadra10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/squadra9"
+                android:layout_below="@+id/squadra9"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Fotogrammi"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/squadra11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/squadra10"
+                android:layout_below="@+id/squadra10"
+                android:layout_marginTop="22dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Barricata 903"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/squadra12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/squadra11"
+                android:layout_below="@+id/squadra11"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Vodkacrodino"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/goal1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/squadra1"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="1"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/goal2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/squadra2"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="4"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/goal3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/squadra3"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="6"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/goal4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/squadra4"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="4"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/goal5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/squadra5"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="1"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/goal6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/squadra6"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="4"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/goal7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/squadra7"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="6"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/goal8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/squadra8"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="4"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/goal9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/squadra9"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="1"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/goal10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/squadra10"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="4"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/goal11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/squadra11"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="6"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/goal12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/squadra12"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="4"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/classifica"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/squadra12"
+                android:layout_below="@+id/squadra12"
+                android:layout_marginTop="32dp"
+                android:fontFamily="monospace"
+                android:text="CLASSIFICA"
+                android:textAppearance="@style/TextAppearance.Medium"
+                android:textSize="25sp" />
+
+
+            <Button
+                android:id="@+id/sq0"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_alignStart="@+id/classifica"
+                android:layout_below="@+id/classifica"
+                android:background="@drawable/button_border_white"
+                android:text="Squadre"
+                android:clickable="false"
+                android:layout_marginTop="10dp" />
+            <Button
+                android:id="@+id/sq1"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_alignStart="@+id/sq0"
+                android:layout_below="@+id/sq0"
+                android:background="@drawable/button_border_green"
+                android:text="Vodkacrodino"
+                android:clickable="false"/>
+            <Button
+                android:id="@+id/sq2"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_alignStart="@+id/sq1"
+                android:layout_below="@+id/sq1"
+                android:background="@drawable/button_border_green"
+                android:clickable="false"
+                android:text="Fotogrammi"/>
+            <Button
+                android:id="@+id/sq3"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_alignStart="@+id/sq2"
+                android:layout_below="@+id/sq2"
+                android:background="@drawable/button_border_red"
+                android:clickable="false"
+                android:text="E poi ha iniziato a piovere"/>
+            <Button
+                android:id="@+id/sq4"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_alignStart="@+id/sq3"
+                android:layout_below="@+id/sq3"
+                android:background="@drawable/button_border_white"
+                android:clickable="false"
+                android:text="Barricata 903"/>
+
+            <Button
+                android:id="@+id/winSq"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/sq0"
+                android:layout_toEndOf="@+id/sq0"
+                android:background="@drawable/button_border_white"
+                android:text="V" />
+
+            <Button
+                android:id="@+id/drawSq"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/winSq"
+                android:layout_toEndOf="@+id/winSq"
+                android:background="@drawable/button_border_white"
+                android:text="X" />
+
+            <Button
+                android:id="@+id/loseSq"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/drawSq"
+                android:layout_toEndOf="@+id/drawSq"
+                android:background="@drawable/button_border_white"
+                android:text="S" />
+
+            <Button
+                android:id="@+id/goalSq"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/loseSq"
+                android:layout_toEndOf="@+id/loseSq"
+                android:background="@drawable/button_border_white"
+                android:text="CF" />
+
+            <Button
+                android:id="@+id/drSq"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/goalSq"
+                android:layout_toEndOf="@+id/goalSq"
+                android:background="@drawable/button_border_white"
+                android:text="DC" />
+
+            <Button
+                android:id="@+id/puntiSq"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/drSq"
+                android:layout_toEndOf="@+id/drSq"
+                android:background="@drawable/button_border_white"
+                android:text="P"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/winSq1"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/sq1"
+                android:layout_toEndOf="@+id/sq1"
+                android:background="@drawable/button_border_white"
+                android:text="3" />
+
+            <Button
+            android:id="@+id/drawSq1"
+            android:layout_width="30dp"
+            android:layout_height="35dp"
+            android:layout_alignTop="@+id/winSq1"
+            android:layout_toEndOf="@+id/winSq1"
+            android:background="@drawable/button_border_white"
+            android:text="0" />
+
+            <Button
+                android:id="@+id/loseSq1"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/drawSq1"
+                android:layout_toEndOf="@+id/drawSq1"
+                android:background="@drawable/button_border_white"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/goalSq1"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/loseSq1"
+                android:layout_toEndOf="@+id/loseSq1"
+                android:background="@drawable/button_border_white"
+                android:text="16" />
+
+            <Button
+                android:id="@+id/drSq1"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/goalSq1"
+                android:layout_toEndOf="@+id/goalSq1"
+                android:background="@drawable/button_border_white"
+                android:text="3" />
+
+            <Button
+                android:id="@+id/puntiSq1"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/drSq1"
+                android:layout_toEndOf="@+id/drSq1"
+                android:background="@drawable/button_border_white"
+                android:text="3"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/winSq2"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/sq2"
+                android:layout_toEndOf="@+id/sq2"
+                android:background="@drawable/button_border_white"
+                android:text="3" />
+
+            <Button
+                android:id="@+id/drawSq2"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/winSq2"
+                android:layout_toEndOf="@+id/winSq2"
+                android:background="@drawable/button_border_white"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/loseSq2"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/drawSq2"
+                android:layout_toEndOf="@+id/drawSq2"
+                android:background="@drawable/button_border_white"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/goalSq2"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/loseSq2"
+                android:layout_toEndOf="@+id/loseSq2"
+                android:background="@drawable/button_border_white"
+                android:text="16" />
+
+            <Button
+                android:id="@+id/drSq2"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/goalSq2"
+                android:layout_toEndOf="@+id/goalSq2"
+                android:background="@drawable/button_border_white"
+                android:text="3" />
+
+            <Button
+                android:id="@+id/puntiSq2"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/drSq2"
+                android:layout_toEndOf="@+id/drSq2"
+                android:background="@drawable/button_border_white"
+                android:text="3"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/winSq3"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/sq3"
+                android:layout_toEndOf="@+id/sq3"
+                android:background="@drawable/button_border_white"
+                android:text="3" />
+
+            <Button
+                android:id="@+id/drawSq3"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/winSq3"
+                android:layout_toEndOf="@+id/winSq3"
+                android:background="@drawable/button_border_white"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/loseSq3"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/drawSq3"
+                android:layout_toEndOf="@+id/drawSq3"
+                android:background="@drawable/button_border_white"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/goalSq3"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/loseSq3"
+                android:layout_toEndOf="@+id/loseSq3"
+                android:background="@drawable/button_border_white"
+                android:text="16" />
+
+            <Button
+                android:id="@+id/drSq3"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/goalSq3"
+                android:layout_toEndOf="@+id/goalSq3"
+                android:background="@drawable/button_border_white"
+                android:text="3" />
+
+            <Button
+                android:id="@+id/puntiSq3"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/drSq3"
+                android:layout_toEndOf="@+id/drSq3"
+                android:background="@drawable/button_border_white"
+                android:text="3"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/winSq4"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/sq4"
+                android:layout_toEndOf="@+id/sq4"
+                android:background="@drawable/button_border_white"
+                android:text="3" />
+
+            <Button
+                android:id="@+id/drawSq4"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/winSq4"
+                android:layout_toEndOf="@+id/winSq4"
+                android:background="@drawable/button_border_white"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/loseSq4"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/drawSq4"
+                android:layout_toEndOf="@+id/drawSq4"
+                android:background="@drawable/button_border_white"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/goalSq4"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/loseSq4"
+                android:layout_toEndOf="@+id/loseSq4"
+                android:background="@drawable/button_border_white"
+                android:text="16" />
+
+            <Button
+                android:id="@+id/drSq4"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/goalSq4"
+                android:layout_toEndOf="@+id/goalSq4"
+                android:background="@drawable/button_border_white"
+                android:text="3" />
+
+            <Button
+                android:id="@+id/puntiSq4"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignTop="@+id/drSq4"
+                android:layout_toEndOf="@+id/drSq4"
+                android:background="@drawable/button_border_white"
+                android:text="3"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/legenda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sq4"
+                android:layout_below="@+id/sq4"
+                android:layout_marginTop="5dp"
+                android:fontFamily="monospace"
+                android:text="V: vinte; X: pareggi; S: sconfitte"
+                android:textAppearance="@style/TextAppearance.Small"
+                android:textSize="10sp" />
+            <TextView
+                android:id="@+id/legenda2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/legenda"
+                android:layout_below="@+id/legenda"
+                android:layout_marginTop="1dp"
+                android:fontFamily="monospace"
+                android:text="CF: canestri fatti; DC: differenza canestri; P: punti"
+                android:textAppearance="@style/TextAppearance.Small"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>
