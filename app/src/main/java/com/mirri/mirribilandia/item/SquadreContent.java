@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.ui.UrlConnectionAsyncTask;
+import com.mirri.mirribilandia.util.Counter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,8 +24,12 @@ public class SquadreContent implements UrlConnectionAsyncTask.UrlConnectionListe
 
     public static final List<SquadreContent.SquadreItem> ITEMS = new ArrayList<>();
     public static final List<String> ARRAY_SQUADRE = new ArrayList<>();
+    private Counter counter;
 
-    public SquadreContent(Context context) {
+    public SquadreContent(Context context, Counter c) {
+        this.counter = c;
+        ITEMS.clear();
+        ARRAY_SQUADRE.clear();
         try {
             new UrlConnectionAsyncTask(new URL(context.getString(R.string.squadre_url)), this, context).execute(new Bundle());
         } catch (MalformedURLException e) {
@@ -47,6 +52,7 @@ public class SquadreContent implements UrlConnectionAsyncTask.UrlConnectionListe
                     for(int i = 0; i < squadra.length(); i++) {
                         addItem(new SquadreItem(squadra.getJSONObject(i).getString("id"), squadra.getJSONObject(i).getString("nome"), squadra.getJSONObject(i).getInt("girone"),squadra.getJSONObject(i).getString("membro1"), squadra.getJSONObject(i).getString("membro2")));
                     }
+                    counter.increment();
                 } else {
                     //Toast.makeText(context, "Errore sconosciuto, riprovare", Toast.LENGTH_LONG).show();
                 }

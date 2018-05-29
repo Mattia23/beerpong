@@ -21,7 +21,7 @@
     <string name="receive_msg_chat">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/mirribilandia/receive_messages.php</string>
 
     <string name="gironi_url">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/beerpong/getPartite.php</string>
-    <string name="eliminatoria_url">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/beerpong/getTabellone.php</string>
+    <string name="eliminatoria_url">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/beerpong/getFasiFinali.php</string>
     <string name="squadre_url">http://ec2-13-58-204-113.us-east-2.compute.amazonaws.com/beerpong/getSquadre.php</string>
 
 

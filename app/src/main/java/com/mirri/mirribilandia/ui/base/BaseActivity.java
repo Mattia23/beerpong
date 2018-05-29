@@ -11,8 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.mirri.mirribilandia.R;
-import com.mirri.mirribilandia.ui.AttractionActivity;
-import com.mirri.mirribilandia.ui.EventActivity;
+import com.mirri.mirribilandia.ui.FasiFinaliActivity;
 import com.mirri.mirribilandia.ui.GironiActivity;
 import com.mirri.mirribilandia.ui.SquadreActivity;
 
@@ -110,7 +109,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.nav_eliminatoria:
-                intent = new Intent(this, AttractionActivity.class);
+                intent = new Intent(this, FasiFinaliActivity.class);
                 startActivity(intent);
                 finish();
                 break;

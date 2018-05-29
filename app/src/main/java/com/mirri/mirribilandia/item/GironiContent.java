@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.ui.UrlConnectionAsyncTask;
+import com.mirri.mirribilandia.util.Counter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,10 +28,14 @@ public class GironiContent implements UrlConnectionAsyncTask.UrlConnectionListen
         public static final List<PartiteItem> ITEMS = new ArrayList<>();
         public static final Map<String, PartiteItem> ITEM_MAP = new HashMap<>();
         public static final List<Integer> GIRONI_ITEMS = new ArrayList<>();
-
+        private Counter counter;
         private Context context;
 
-        public GironiContent(Context context){
+        public GironiContent(Context context, Counter c){
+            this.counter = c;
+            ITEMS.clear();
+            ITEM_MAP.clear();
+            GIRONI_ITEMS.clear();
             this.context = context;
             try {
                 new UrlConnectionAsyncTask(new URL(context.getString(R.string.gironi_url)), this, context).execute(new Bundle());
@@ -66,6 +71,7 @@ public class GironiContent implements UrlConnectionAsyncTask.UrlConnectionListen
                                 precGirone = actualGirone;
                             }
                         }
+                        counter.increment();
                     } else {
                         Toast.makeText(this.context, "Errore sconosciuto 1", Toast.LENGTH_LONG).show();
                     }

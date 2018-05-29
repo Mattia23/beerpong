@@ -1,5 +1,7 @@
 package com.mirri.mirribilandia.ui.gironi;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
@@ -41,10 +43,11 @@ public class GironiDetailFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getActivity().getWindow().setStatusBarColor(Color.parseColor(("#1976d2")));
+        }
         View rootView = inflateAndBind(inflater, container, R.layout.fragment_gironi_detail);
-
         editResults(rootView);
-
         editTable(rootView);
 
         CollapsingToolbarLayout name = rootView.findViewById(R.id.collapsing_toolbar);

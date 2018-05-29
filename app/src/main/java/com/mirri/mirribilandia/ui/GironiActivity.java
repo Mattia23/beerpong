@@ -1,6 +1,7 @@
 package com.mirri.mirribilandia.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
@@ -17,6 +18,9 @@ import com.mirri.mirribilandia.ui.gironi.GironiListFragment;
 import com.mirri.mirribilandia.util.LogUtil;
 
 import java.time.Duration;
+
+import static com.mirri.mirribilandia.util.Utilities.MY_PREFS_NAME;
+import static com.mirri.mirribilandia.util.Utilities.RESTART;
 
 /**
  * Created by Mattia on 23/05/2018.
@@ -54,7 +58,6 @@ public class GironiActivity extends BaseActivity implements GironiListFragment.C
             // Start the detail activity in single pane mode.
             Intent detailIntent = new Intent(this, GironiDetailActivity.class);
             detailIntent.putExtra(GironiDetailFragment.ARG_ITEM_ID, id);
-            Toast.makeText(this,"Id: "+ id, Toast.LENGTH_LONG).show();
             startActivity(detailIntent);
         }
     }

@@ -8,9 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mirri.mirribilandia.R;
@@ -20,42 +20,69 @@ import com.mirri.mirribilandia.item.SquadreContent;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 import com.mirri.mirribilandia.util.Counter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Mattia on 27/05/2018.
  */
 
-public class SquadreActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
+public class FasiFinaliActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
 
-    private TextView mem1,mem2;
+    private ListView listView;
+    private ArrayList<FasiFinaliContent.FasiFinaliItem> arrayOfMatches;
     private Boolean wasOnPause = false;
     private ProgressBar loadingSpinner;
+    private Spinner spinner;
+
+    public interface Fasi {
+        String TRENTADUESIMI = "Trentaduesimi";
+        String SEDICESIMI = "Sedicesimi";
+        String OTTAVI = "Ottavi";
+        String QUARTI = "Quarti";
+        String SEMIFINALI = "Semifinali";
+        String FINALE = "Finale";
+
+        String[] values = {TRENTADUESIMI,SEDICESIMI,OTTAVI,QUARTI,SEMIFINALI,FINALE};
+        Map<String,Integer> map = new HashMap<String,Integer>(){{ put(TRENTADUESIMI,32); put(SEDICESIMI,16);
+            put(OTTAVI,8); put(QUARTI,4); put(SEMIFINALI,2); put(FINALE,1);}};
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor(("#1976d2")));
         }
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_squadre);
+        setContentView(R.layout.activity_fasi_finali);
         setupToolbar();
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(this);
-
-        mem1 = (TextView) findViewById(R.id.membro1);
-        mem2 = (TextView) findViewById(R.id.membro2);
-
-        loadingSpinner =(ProgressBar)findViewById(R.id.progressBar);
-        loadingSpinner.setVisibility(View.GONE);
-
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item, SquadreContent.ARRAY_SQUADRE.toArray());
+        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Fasi.values);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(aa);
+
+        loadingSpinner =(ProgressBar)findViewById(R.id.progressBar2);
+        loadingSpinner.setVisibility(View.GONE);
+
+        listView = (ListView) findViewById(R.id.listView);
+    }
+
+    private void displayResults(String fase) {
+        arrayOfMatches = new ArrayList<FasiFinaliContent.FasiFinaliItem>();
+        for(FasiFinaliContent.FasiFinaliItem f : FasiFinaliContent.ITEMS) {
+            if(f.turno == Fasi.map.get(fase)) {
+                arrayOfMatches.add(f);
+            }
+        }
+        MatchesAdapter adapter = new MatchesAdapter(this, arrayOfMatches);
+        listView.setAdapter(adapter);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-        mem1.setText(SquadreContent.ITEMS.get(position).membro1);
-        mem2.setText(SquadreContent.ITEMS.get(position).membro2);
+        displayResults(Fasi.values[position]);
     }
 
     @Override
@@ -75,7 +102,7 @@ public class SquadreActivity extends BaseActivity implements AdapterView.OnItemS
 
     @Override
     protected int getSelfNavDrawerItem() {
-        return R.id.nav_squadre;
+        return R.id.nav_eliminatoria;
     }
 
     @Override
@@ -106,13 +133,16 @@ public class SquadreActivity extends BaseActivity implements AdapterView.OnItemS
 
     private void refreshContents() {
         loadingSpinner.setVisibility(View.VISIBLE);
-        Counter c = new Counter(null,null,this,null);
+        Counter c = new Counter(null,null,null,this);
         new FasiFinaliContent(this, c);
         new GironiContent(this, c);
         new SquadreContent(this, c);
     }
 
     public void stopLoadingSpinner() {
+        String fase = Fasi.values[spinner.getSelectedItemPosition()];
+        Toast.makeText(this,fase,Toast.LENGTH_SHORT).show();
+        displayResults(fase);
         loadingSpinner.setVisibility(View.GONE);
     }
 }

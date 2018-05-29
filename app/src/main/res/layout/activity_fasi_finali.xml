@@ -16,30 +16,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Componenti" />
-
-        <TextView
-            android:id="@+id/membro1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Comp 1" />
-
-        <TextView
-            android:id="@+id/membro2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Comp 2" />
-
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/progressBar2"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:progressDrawable="@drawable/circular_progress_bar" />
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
     <include layout="@layout/include_navigation" />
 
