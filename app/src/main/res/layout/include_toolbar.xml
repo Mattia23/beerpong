@@ -7,4 +7,16 @@
     app:contentInsetStart="72dp"
     app:popupTheme="@style/ToolbarPopUp"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" />
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:id="@+id/refreshButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/arrow"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:layout_marginEnd="10dp"
+        android:layout_gravity="end"/>
+
+</android.support.v7.widget.Toolbar>

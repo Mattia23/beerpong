@@ -1,5 +1,6 @@
 package com.mirri.mirribilandia.ui;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -28,7 +30,7 @@ public class SquadreActivity extends BaseActivity implements AdapterView.OnItemS
 
     private TextView mem1,mem2;
     private Boolean wasOnPause = false;
-    private ProgressBar loadingSpinner;
+    private ImageButton button;
 
     protected void onCreate(Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -44,12 +46,12 @@ public class SquadreActivity extends BaseActivity implements AdapterView.OnItemS
         mem1 = (TextView) findViewById(R.id.membro1);
         mem2 = (TextView) findViewById(R.id.membro2);
 
-        loadingSpinner =(ProgressBar)findViewById(R.id.progressBar);
-        loadingSpinner.setVisibility(View.GONE);
-
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item, SquadreContent.ARRAY_SQUADRE.toArray());
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(aa);
+
+        button = (ImageButton) findViewById(R.id.refreshButton);
+        button.setOnClickListener(view -> refreshContents());
     }
 
     @Override
@@ -60,7 +62,6 @@ public class SquadreActivity extends BaseActivity implements AdapterView.OnItemS
 
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
-        // TODO Auto-generated method stub
     }
 
     @Override
@@ -105,14 +106,14 @@ public class SquadreActivity extends BaseActivity implements AdapterView.OnItemS
     }
 
     private void refreshContents() {
-        loadingSpinner.setVisibility(View.VISIBLE);
-        Counter c = new Counter(null,null,this,null);
+        progressDialog.show();
+        Counter c = new Counter(null,null,null,this,null);
         new FasiFinaliContent(this, c);
         new GironiContent(this, c);
         new SquadreContent(this, c);
     }
 
     public void stopLoadingSpinner() {
-        loadingSpinner.setVisibility(View.GONE);
+        progressDialog.dismiss();
     }
 }

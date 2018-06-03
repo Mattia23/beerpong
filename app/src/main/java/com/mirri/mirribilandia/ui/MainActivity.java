@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Counter c = new Counter(this,null,null,null);
+        Counter c = new Counter(this,null,null,null,null);
         new GironiContent(getApplicationContext(),c);
         new SquadreContent(getApplicationContext(),c);
         new FasiFinaliContent(getApplicationContext(),c);

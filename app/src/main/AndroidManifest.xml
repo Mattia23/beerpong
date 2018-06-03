@@ -9,7 +9,8 @@
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Main">
+        android:theme="@style/Theme.Main"
+        android:largeHeap="true">
 
         <activity android:name=".ui.MainActivity">
             android:theme="@style/Base.Theme"
@@ -25,8 +26,6 @@
         <activity android:name=".ui.gironi.GironiDetailActivity" android:parentActivityName=".ui.GironiActivity"/>
         <activity android:name=".ui.SquadreActivity" android:label="Squadre"/>
         <activity android:name=".ui.FasiFinaliActivity" android:label="Fasi finali"/>
-        <activity android:name=".ui.attraction.AttractionDetailActivity" android:parentActivityName=".ui.AttractionActivity"/>
-        <activity android:name=".ui.hotel.HotelDetailActivity" android:parentActivityName=".ui.AttractionActivity"/>
 
         <!--service   android:enabled="true" android:name=".beacon.BeaconService"/-->
 

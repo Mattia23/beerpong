@@ -1,5 +1,6 @@
 package com.mirri.mirribilandia.ui.base;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,12 +10,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.ui.FasiFinaliActivity;
 import com.mirri.mirribilandia.ui.GironiActivity;
 import com.mirri.mirribilandia.ui.SquadreActivity;
+import com.mirri.mirribilandia.util.MyCustomProgressDialog;
 
+import static android.app.ProgressDialog.STYLE_HORIZONTAL;
+import static android.app.ProgressDialog.STYLE_SPINNER;
 import static com.mirri.mirribilandia.util.LogUtil.logD;
 import static com.mirri.mirribilandia.util.LogUtil.makeLogTag;
 
@@ -30,16 +35,16 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private Toolbar actionBarToolbar;
+    protected ProgressDialog progressDialog = null;
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setupNavDrawer();
+
+        progressDialog = MyCustomProgressDialog.ctor(BaseActivity.this);
     }
 
-    /**
-     * Sets up the navigation drawer.
-     */
     private void setupNavDrawer() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawerLayout == null) {
@@ -52,8 +57,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             setupDrawerSelectListener(navigationView);
             setSelectedItem(navigationView);
         }
-
-        logD(TAG, "navigation drawer setup finished");
     }
 
     /**
@@ -72,13 +75,10 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     private void setupDrawerSelectListener(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        drawerLayout.closeDrawers();
-                        onNavigationItemClicked(menuItem.getItemId());
-                        return true;
-                    }
+                menuItem -> {
+                    onNavigationItemClicked(menuItem.getItemId());
+                    closeDrawer();
+                    return true;
                 });
     }
 
@@ -140,9 +140,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * Returns the navigation drawer item that corresponds to this Activity. Subclasses
      * have to override this method.
      */
-    protected int getSelfNavDrawerItem() {
-        return NAV_DRAWER_ITEM_INVALID;
-    }
+    protected int getSelfNavDrawerItem() { return NAV_DRAWER_ITEM_INVALID; }
 
     protected void openDrawer() {
         if(drawerLayout == null)

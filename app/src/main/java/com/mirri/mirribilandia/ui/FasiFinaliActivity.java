@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -33,8 +34,8 @@ public class FasiFinaliActivity extends BaseActivity implements AdapterView.OnIt
     private ListView listView;
     private ArrayList<FasiFinaliContent.FasiFinaliItem> arrayOfMatches;
     private Boolean wasOnPause = false;
-    private ProgressBar loadingSpinner;
     private Spinner spinner;
+    private ImageButton button;
 
     public interface Fasi {
         String TRENTADUESIMI = "Trentaduesimi";
@@ -63,10 +64,10 @@ public class FasiFinaliActivity extends BaseActivity implements AdapterView.OnIt
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(aa);
 
-        loadingSpinner =(ProgressBar)findViewById(R.id.progressBar2);
-        loadingSpinner.setVisibility(View.GONE);
-
         listView = (ListView) findViewById(R.id.listView);
+
+        button = (ImageButton) findViewById(R.id.refreshButton);
+        button.setOnClickListener(view -> refreshContents());
     }
 
     private void displayResults(String fase) {
@@ -132,8 +133,8 @@ public class FasiFinaliActivity extends BaseActivity implements AdapterView.OnIt
     }
 
     private void refreshContents() {
-        loadingSpinner.setVisibility(View.VISIBLE);
-        Counter c = new Counter(null,null,null,this);
+        progressDialog.show();
+        Counter c = new Counter(null,null,null, null, this);
         new FasiFinaliContent(this, c);
         new GironiContent(this, c);
         new SquadreContent(this, c);
@@ -141,8 +142,7 @@ public class FasiFinaliActivity extends BaseActivity implements AdapterView.OnIt
 
     public void stopLoadingSpinner() {
         String fase = Fasi.values[spinner.getSelectedItemPosition()];
-        Toast.makeText(this,fase,Toast.LENGTH_SHORT).show();
         displayResults(fase);
-        loadingSpinner.setVisibility(View.GONE);
+        progressDialog.dismiss();
     }
 }
