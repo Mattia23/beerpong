@@ -60,8 +60,8 @@ public class FasiFinaliActivity extends BaseActivity implements AdapterView.OnIt
 
         spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(this);
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Fasi.values);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter aa = new ArrayAdapter(this,R.layout.spinner_item_text, Fasi.values);
+        aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner.setAdapter(aa);
 
         listView = (ListView) findViewById(R.id.listView);

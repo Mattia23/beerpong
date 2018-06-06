@@ -52,7 +52,8 @@ public class FasiFinaliContent implements UrlConnectionAsyncTask.UrlConnectionLi
                                 partita.getJSONObject(i).getString("sq2"),
                                 partita.getJSONObject(i).getInt("goal1"),
                                 partita.getJSONObject(i).getInt("goal2"),
-                                partita.getJSONObject(i).getInt("turno")));
+                                partita.getJSONObject(i).getInt("turno"),
+                                partita.getJSONObject(i).getInt("tavolo")));
                     }
                     counter.increment();
                 } else {
@@ -71,14 +72,16 @@ public class FasiFinaliContent implements UrlConnectionAsyncTask.UrlConnectionLi
         public final int goal1;
         public final int goal2;
         public final int turno;
+        public final int tavolo;
 
-        FasiFinaliItem(int id, String sq1, String sq2, int goal1, int goal2, int turno) {
+        FasiFinaliItem(int id, String sq1, String sq2, int goal1, int goal2, int turno, int tavolo) {
             this.id = id;
             this.sq1 = sq1;
             this.sq2 = sq2;
             this.goal1 = goal1;
             this.goal2 = goal2;
             this.turno = turno;
+            this.tavolo = tavolo;
         }
     }
 }

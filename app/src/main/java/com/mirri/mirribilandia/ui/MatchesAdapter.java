@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 public class MatchesAdapter extends ArrayAdapter<FasiFinaliContent.FasiFinaliItem> {
 
+    private String s1,s2;
+
     public MatchesAdapter(Context context, ArrayList<FasiFinaliContent.FasiFinaliItem> matches) {
         super(context, 0, matches);
     }
@@ -31,9 +33,30 @@ public class MatchesAdapter extends ArrayAdapter<FasiFinaliContent.FasiFinaliIte
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_fasi_finali, parent, false);
         }
         // Lookup view for data population
-        TextView matchScore = (TextView) convertView.findViewById(R.id.matchScore);
+        TextView matchScore = (TextView) convertView.findViewById(R.id.titleFasiFinali);
+        TextView tavolo = (TextView) convertView.findViewById(R.id.textViewTavolo);
+        TextView info = (TextView) convertView.findViewById(R.id.matchInfo);
         // Populate the data into the template view using the data object
-        matchScore.setText(match.sq1+" - "+match.sq2);
+        s1 = match.sq1;
+        s2 = match.sq2;
+        if(s1.length() > 18) {
+            s1 = s1.substring(0, 18);
+            s1 = s1+"...";
+        }
+        if(s2.length() > 18) {
+            s2 = s2.substring(0, 18);
+            s2 = s2+"...";
+        }
+
+        if(match.goal1==0 && match.goal2==0) {
+            matchScore.setText(s1+" - "+s2);
+        } else {
+            matchScore.setText(s1+" - "+s2+"  "+match.goal1+"-"+match.goal2);
+            tavolo.setVisibility(View.GONE);
+            info.setVisibility(View.GONE);
+        }
+
+        tavolo.setText("TAVOLO "+match.tavolo);
         // Return the completed view to render on screen
         return convertView;
     }

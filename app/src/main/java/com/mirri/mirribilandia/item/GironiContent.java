@@ -27,7 +27,7 @@ public class GironiContent implements UrlConnectionAsyncTask.UrlConnectionListen
 
         public static final List<PartiteItem> ITEMS = new ArrayList<>();
         public static final Map<String, PartiteItem> ITEM_MAP = new HashMap<>();
-        public static final List<Integer> GIRONI_ITEMS = new ArrayList<>();
+        public static final Map<Integer,List<String>> GIRONI_ITEMS = new HashMap<>();
         private Counter counter;
         private Context context;
 
@@ -55,21 +55,28 @@ public class GironiContent implements UrlConnectionAsyncTask.UrlConnectionListen
                 try {
                     final int code = response.getInt("code");
                     if(code == 2) {
-                        int precGirone = -1;
+                        int actualGirone = -1;
+                        int count = 1;
+                        ArrayList<String> squadreNelGirone = new ArrayList<>();
                         final JSONArray partita = response.getJSONObject("extra").getJSONArray("data");
                         for(int i = 0; i < partita.length(); i++) {
-                            int actualGirone = partita.getJSONObject(i).getInt("girone");
+                            actualGirone = partita.getJSONObject(i).getInt("girone");
                             addItem(new PartiteItem(   partita.getJSONObject(i).getString("id"),
                                                                     partita.getJSONObject(i).getString("sq1"),
                                                                     partita.getJSONObject(i).getString("sq2"),
                                                                     partita.getJSONObject(i).getInt("goal1"),
                                                                     partita.getJSONObject(i).getInt("goal2"),
                                                                     actualGirone));
-
-                            if(precGirone != actualGirone){
-                                GIRONI_ITEMS.add(actualGirone);
-                                precGirone = actualGirone;
+                            if(count < 3) {
+                                squadreNelGirone.add(partita.getJSONObject(i).getString("sq1"));
+                                squadreNelGirone.add(partita.getJSONObject(i).getString("sq2"));
                             }
+                            if(count%4 == 0){
+                                GIRONI_ITEMS.put(actualGirone,squadreNelGirone);
+                                count = 0;
+                                squadreNelGirone = new ArrayList<>();
+                            }
+                            count++;
                         }
                         counter.increment();
                     } else {

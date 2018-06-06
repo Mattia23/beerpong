@@ -53,4 +53,19 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="textViewStyle" parent="@android:style/TextAppearance">
+        <item name="android:textSize">50sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/pristina</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/theme_window_background</item>
+    </style>
+
+    <style name="SpinnerTextViewItem" parent="@android:style/Widget.TextView" >
+        <item name="android:textAppearance"> @android:style/TextAppearance.Holo.Widget.TextView.SpinnerItem </item>
+        <item name="android:textSize" >18dp</item>
+        <item name="android:textColor">@color/cardview_light_background</item>
+        <item name="android:paddingLeft">30dp</item>
+    </style>
+
 </resources>

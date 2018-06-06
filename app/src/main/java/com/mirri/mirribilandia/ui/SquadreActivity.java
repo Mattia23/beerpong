@@ -46,8 +46,8 @@ public class SquadreActivity extends BaseActivity implements AdapterView.OnItemS
         mem1 = (TextView) findViewById(R.id.membro1);
         mem2 = (TextView) findViewById(R.id.membro2);
 
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item, SquadreContent.ARRAY_SQUADRE.toArray());
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter aa = new ArrayAdapter(this,R.layout.spinner_item_text, SquadreContent.ARRAY_SQUADRE.toArray());
+        aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner.setAdapter(aa);
 
         button = (ImageButton) findViewById(R.id.refreshButton);

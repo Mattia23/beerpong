@@ -6,12 +6,15 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.item.GironiContent;
@@ -44,6 +47,12 @@ public class GironiListFragment extends ListFragment {
         super.onCreate(savedInstanceState);
         setListAdapter(new GironiListAdapter());
         setHasOptionsMenu(true);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
@@ -96,12 +105,12 @@ public class GironiListFragment extends ListFragment {
 
         @Override
         public Object getItem(int position) {
-            return GironiContent.GIRONI_ITEMS.get(position);
+            return position+1;
         }
 
         @Override
         public long getItemId(int position) {
-            return GironiContent.GIRONI_ITEMS.get(position).hashCode();
+            return GironiContent.GIRONI_ITEMS.get(position+1).hashCode();
         }
 
         @Override
@@ -111,7 +120,12 @@ public class GironiListFragment extends ListFragment {
             }
             final int gir = (int) getItem(position);
             ((TextView) convertView.findViewById(R.id.article_title)).setText("Girone "+gir);
-            //((TextView) convertView.findViewById(R.id.article_subtitle)).setText("Distanza dal parco divertimenti: " + hotelItem.distance + "Km");
+            String elenco = "";
+            for(String s : GironiContent.GIRONI_ITEMS.get(gir)) {
+                elenco = elenco + s + ", ";
+            }
+            elenco = elenco.substring(0, elenco.length() - 2);
+            ((TextView) convertView.findViewById(R.id.article_subtitle)).setText(elenco);
 
             return convertView;
         }

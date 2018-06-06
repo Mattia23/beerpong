@@ -6,33 +6,56 @@
     android:fitsSystemWindows="true">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/backgroundbeer2"
+        android:orientation="vertical">
+
         <include layout="@layout/include_toolbar" />
 
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/grey_button" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Componenti" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/membro1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Comp 1" />
+            <TextView
+                android:id="@+id/textView"
+                style="@style/textViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:text="Componenti" />
 
-        <TextView
-            android:id="@+id/membro2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Comp 2" />
+            <TextView
+                android:id="@+id/membro1"
+                style="@style/textViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView"
+                android:layout_marginTop="102dp"
+                android:text="Comp 1" />
+
+            <TextView
+                android:id="@+id/membro2"
+                style="@style/textViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/membro1"
+                android:layout_marginTop="37dp"
+                android:text="Comp 2" />
+        </RelativeLayout>
+
 
 
     </LinearLayout>

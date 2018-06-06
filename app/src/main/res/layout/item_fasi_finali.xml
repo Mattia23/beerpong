@@ -1,10 +1,49 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="horizontal">
+
     <TextView
-        android:id="@+id/matchScore"
+        android:id="@+id/titleFasiFinali"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name" />
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"
+        android:text="text"
+        android:fontFamily="@font/crimson_semi_bold"
+        android:textSize="20dp"/>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/textViewTavolo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:text="TAVOLO"
+        android:layout_below="@+id/titleFasiFinali"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/crimson"
+        android:textSize="14dp"/>
+
+    <TextView
+        android:id="@+id/matchInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:text="In corso"
+        android:textStyle="italic"
+        android:fontFamily="@font/crimson"
+        android:textSize="12dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewTavolo"
+        android:layout_marginTop="7dp"
+        android:src="@drawable/white_line" />
+
+</RelativeLayout>
