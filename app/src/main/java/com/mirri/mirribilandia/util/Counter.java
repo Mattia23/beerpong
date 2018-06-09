@@ -1,9 +1,11 @@
 package com.mirri.mirribilandia.util;
 
+import com.mirri.mirribilandia.item.FasiFinaliContent;
 import com.mirri.mirribilandia.ui.FasiFinaliActivity;
 import com.mirri.mirribilandia.ui.GironiActivity;
 import com.mirri.mirribilandia.ui.MainActivity;
 import com.mirri.mirribilandia.ui.SquadreActivity;
+import com.mirri.mirribilandia.ui.TerzeContainer;
 import com.mirri.mirribilandia.ui.gironi.GironiDetailFragment;
 
 /**
@@ -18,6 +20,7 @@ public class Counter {
     private GironiActivity gironiActivity;
     private SquadreActivity squadreActivity;
     private FasiFinaliActivity fasiFinaliActivity;
+    private TerzeContainer terzeContainer;
 
     public Counter (MainActivity m, GironiActivity ga, GironiDetailFragment gf, SquadreActivity s, FasiFinaliActivity f) {
         this.counter = 0;
@@ -31,6 +34,10 @@ public class Counter {
     public void increment() {
         counter++;
         if(counter > 2) {
+            if(mainActivity == null && FasiFinaliContent.ITEMS.size()==0) {
+                terzeContainer = MainActivity.getThirdContainer();
+                terzeContainer.refreshContainer();
+            }
             if(mainActivity == null && gironiActivity == null && gironiFragment == null && squadreActivity == null) {
                 fasiFinaliActivity.stopLoadingSpinner();
             } else if(mainActivity == null && gironiActivity == null && gironiFragment == null && fasiFinaliActivity == null) {
@@ -42,7 +49,6 @@ public class Counter {
             } else if(gironiActivity == null && gironiFragment == null && squadreActivity == null && fasiFinaliActivity == null) {
                 mainActivity.stopLoadingSpinner();
             }
-
         }
     }
 }

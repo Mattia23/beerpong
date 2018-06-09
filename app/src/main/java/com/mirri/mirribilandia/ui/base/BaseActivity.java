@@ -16,6 +16,7 @@ import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.ui.FasiFinaliActivity;
 import com.mirri.mirribilandia.ui.GironiActivity;
 import com.mirri.mirribilandia.ui.SquadreActivity;
+import com.mirri.mirribilandia.ui.TerzeActivity;
 import com.mirri.mirribilandia.util.MyCustomProgressDialog;
 
 import static android.app.ProgressDialog.STYLE_HORIZONTAL;
@@ -105,6 +106,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         switch (item) {
             case R.id.nav_gironi:
                 intent = new Intent(this, GironiActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.nav_terze:
+                intent = new Intent(this, TerzeActivity.class);
                 startActivity(intent);
                 finish();
                 break;

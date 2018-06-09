@@ -9,6 +9,11 @@
             android:title="Gironi"
             tools:targetApi="lollipop" />
         <item
+            android:id="@+id/nav_terze"
+            android:icon="?android:attr/actionModeFindDrawable"
+            android:title="Migliori terze"
+            tools:targetApi="lollipop" />
+        <item
             android:id="@+id/nav_eliminatoria"
             android:icon="@android:drawable/star_big_on"
             android:title="Fase eliminatoria" />

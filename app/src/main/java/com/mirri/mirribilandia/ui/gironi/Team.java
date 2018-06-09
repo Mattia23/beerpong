@@ -46,31 +46,31 @@ public class Team {
         this.points += points;
     }
 
-    int getWins() {
+    public int getWins() {
         return this.wins;
     }
 
-    int getDraws() {
+    public int getDraws() {
         return this.draws;
     }
 
-    int getLoses() {
+    public int getLoses() {
         return this.loses;
     }
 
-    int getGoalDone() {
+    public int getGoalDone() {
         return this.goalDone;
     }
 
-    int getGoalSubmit() {
+    public int getGoalSubmit() {
         return this.goalSubmit;
     }
 
-    int getGoalDiff() {
+    public int getGoalDiff() {
         return this.goalDone - this.goalSubmit;
     }
 
-    int getPoints() {
+    public int getPoints() {
         return this.points;
     }
 

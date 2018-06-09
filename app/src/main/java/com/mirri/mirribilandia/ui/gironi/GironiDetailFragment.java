@@ -2,27 +2,19 @@ package com.mirri.mirribilandia.ui.gironi;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mirri.mirribilandia.R;
 import com.mirri.mirribilandia.item.FasiFinaliContent;
 import com.mirri.mirribilandia.item.GironiContent;
 import com.mirri.mirribilandia.item.SquadreContent;
-import com.mirri.mirribilandia.ui.FasiFinaliActivity;
 import com.mirri.mirribilandia.ui.base.BaseActivity;
 import com.mirri.mirribilandia.ui.base.BaseFragment;
 import com.mirri.mirribilandia.util.Counter;
@@ -31,9 +23,7 @@ import com.mirri.mirribilandia.util.MyCustomProgressDialog;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 public class GironiDetailFragment extends BaseFragment {
 
@@ -70,6 +60,10 @@ public class GironiDetailFragment extends BaseFragment {
         if (!((BaseActivity) getActivity()).providesActivityToolbar()) {
             ((BaseActivity) getActivity()).setToolbar((Toolbar) rootView.findViewById(R.id.toolbar));
         }
+
+        ImageButton button = (ImageButton) rootView.findViewById(R.id.refreshButton);
+        button.setOnClickListener(view -> refreshContentsFromButton());
+
         return rootView;
     }
 
@@ -133,31 +127,31 @@ public class GironiDetailFragment extends BaseFragment {
     private void createGraphicTable(View rootView) {
         sq1 = (TextView) rootView.findViewById(R.id.sq1);
         sq2 = (TextView) rootView.findViewById(R.id.sq2);
-        sq3 = (TextView) rootView.findViewById(R.id.sq3);
+        sq3 = (TextView) rootView.findViewById(R.id.terzaSq);
         sq4 = (TextView) rootView.findViewById(R.id.sq4);
         win1 = (TextView) rootView.findViewById(R.id.winSq1);
         win2 = (TextView) rootView.findViewById(R.id.winSq2);
-        win3 = (TextView) rootView.findViewById(R.id.winSq3);
+        win3 = (TextView) rootView.findViewById(R.id.winTerzaSq);
         win4 = (TextView) rootView.findViewById(R.id.winSq4);
         draw1 = (TextView) rootView.findViewById(R.id.drawSq1);
         draw2 = (TextView) rootView.findViewById(R.id.drawSq2);
-        draw3 = (TextView) rootView.findViewById(R.id.drawSq3);
+        draw3 = (TextView) rootView.findViewById(R.id.drawTerzaSq);
         draw4 = (TextView) rootView.findViewById(R.id.drawSq4);
         lose1 = (TextView) rootView.findViewById(R.id.loseSq1);
         lose2 = (TextView) rootView.findViewById(R.id.loseSq2);
-        lose3 = (TextView) rootView.findViewById(R.id.loseSq3);
+        lose3 = (TextView) rootView.findViewById(R.id.loseTerzaSq);
         lose4 = (TextView) rootView.findViewById(R.id.loseSq4);
         goal1 = (TextView) rootView.findViewById(R.id.goalSq1);
         goal2 = (TextView) rootView.findViewById(R.id.goalSq2);
-        goal3 = (TextView) rootView.findViewById(R.id.goalSq3);
+        goal3 = (TextView) rootView.findViewById(R.id.goalTerzaSq);
         goal4 = (TextView) rootView.findViewById(R.id.goalSq4);
         dr1 = (TextView) rootView.findViewById(R.id.drSq1);
         dr2 = (TextView) rootView.findViewById(R.id.drSq2);
-        dr3 = (TextView) rootView.findViewById(R.id.drSq3);
+        dr3 = (TextView) rootView.findViewById(R.id.drTerzaSq);
         dr4 = (TextView) rootView.findViewById(R.id.drSq4);
         points1 = (TextView) rootView.findViewById(R.id.puntiSq1);
         points2 = (TextView) rootView.findViewById(R.id.puntiSq2);
-        points3 = (TextView) rootView.findViewById(R.id.puntiSq3);
+        points3 = (TextView) rootView.findViewById(R.id.puntiTerzaSq);
         points4 = (TextView) rootView.findViewById(R.id.puntiSq4);
     }
 
@@ -272,6 +266,13 @@ public class GironiDetailFragment extends BaseFragment {
         editResults();
         editTable();
         progressDialog.dismiss();
+    }
+
+
+    private void refreshContentsFromButton() {
+        partite = new ArrayList<>();
+        refreshContents();
+        wasOnPause = false;
     }
 
     @Override

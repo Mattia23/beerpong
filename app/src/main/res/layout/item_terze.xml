@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="horizontal">
+
+
+    <Button
+        android:id="@+id/terzaSq"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/button_border_green"
+        android:clickable="false"
+        android:text="squadra"/>
+    <Button
+        android:id="@+id/winTerzaSq"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:layout_alignTop="@+id/terzaSq"
+        android:layout_toEndOf="@+id/terzaSq"
+        android:background="@drawable/button_border_white"
+        android:text="3" />
+
+    <Button
+        android:id="@+id/drawTerzaSq"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:layout_alignTop="@+id/winTerzaSq"
+        android:layout_toEndOf="@+id/winTerzaSq"
+        android:background="@drawable/button_border_white"
+        android:text="0" />
+
+    <Button
+        android:id="@+id/loseTerzaSq"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:layout_alignTop="@+id/drawTerzaSq"
+        android:layout_toEndOf="@+id/drawTerzaSq"
+        android:background="@drawable/button_border_white"
+        android:text="0" />
+
+    <Button
+        android:id="@+id/goalTerzaSq"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:layout_alignTop="@+id/loseTerzaSq"
+        android:layout_toEndOf="@+id/loseTerzaSq"
+        android:background="@drawable/button_border_white"
+        android:text="16" />
+
+    <Button
+        android:id="@+id/drTerzaSq"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:layout_alignTop="@+id/goalTerzaSq"
+        android:layout_toEndOf="@+id/goalTerzaSq"
+        android:background="@drawable/button_border_white"
+        android:text="3" />
+
+    <Button
+        android:id="@+id/puntiTerzaSq"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:layout_alignTop="@+id/drTerzaSq"
+        android:layout_toEndOf="@+id/drTerzaSq"
+        android:background="@drawable/button_border_white"
+        android:text="3"
+        android:textStyle="bold"/>
+
+
+</RelativeLayout>

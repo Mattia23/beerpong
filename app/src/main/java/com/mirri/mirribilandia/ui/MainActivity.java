@@ -29,6 +29,7 @@ import static com.mirri.mirribilandia.util.Utilities.RESTART;
 public class MainActivity extends Activity {
 
     private boolean canGo = false;
+    private static TerzeContainer terzeContainer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,11 +80,16 @@ public class MainActivity extends Activity {
     }
 
     public void stopLoadingSpinner() {
+        terzeContainer = new TerzeContainer();
         if(canGo) {
             startGironi();
         } else {
             canGo = true;
         }
+    }
+
+    public static TerzeContainer getThirdContainer() {
+        return terzeContainer;
     }
 
 }

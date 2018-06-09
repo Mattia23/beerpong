@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Mattia on 27/05/2018.
  */
-class TeamComparator implements Comparator<Team> {
+public class TeamComparator implements Comparator<Team> {
 
     private List<GironiContent.PartiteItem> partite;
 
